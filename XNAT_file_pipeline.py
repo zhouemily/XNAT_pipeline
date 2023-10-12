@@ -3,6 +3,8 @@
 import os
 import cairosvg
 from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont
+
 
 # Convert SVG files to PNG
 def svg_to_png(svg_file, png_file):
@@ -69,8 +71,8 @@ text = "add needed text or check mark here"  # Replace with the desired text
 #draw.text(text_position, text, fill="white", font=font)
 
 # Calculate the position to center the text horizontally and vertically
-text_width, text_height = draw.textsize(text, font)
-x = (width - text_width) // 2
+##text_width, text_height = draw.textsize(text, font)
+x = width / 2
 #y = (height - text_height) // 2
 y = png_image.height
 
@@ -88,8 +90,8 @@ image1.close()
 image2.close()
 
 # Clean up temporary files
-os.remove(image1)
-os.remove(image2)
+#os.remove(image1)
+#os.remove(image2)
 
 print("Stacked image saved as 'stacked_image.png'")
 print("End of Program")
