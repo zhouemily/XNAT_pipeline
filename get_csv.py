@@ -17,6 +17,9 @@ cups_id="sub-CUPS003"
 
 csv_file_path =root_path+ 'PipelineOutputs/bids/derivatives/xcp/ses-A/xcp_minimal_aroma/'+cups_id+"/"+cups_id+'_ses-A_quality_aroma.csv'  
 # Replace with the actual path to CSV file
+key1="motionDVCorrInit"
+key2="motionDVCorrFinal"
+key3="estimatedLostTemporalDOF"
 
 if DEBUG:
   print('DEBUG: csv_file_path='+csv_file_path)
@@ -50,3 +53,7 @@ except FileNotFoundError:
 # Print the extracted key-value pairs
 for key, value in data_dict.items():
     print(f"Key: {key}, Value: {value}")
+
+print(key1+"="+data_dict{key1}+"\n")
+print(key2+"="+data_dict{key1}+"\n")
+print(key3+"="+data_dict{key1}+"\n")
