@@ -8,9 +8,13 @@ import os
 import csv
 
 DEBUG=1
+cups_id=sub-CUPS003
+##csv_file_path = 'PipelineOutputs/bids/derivatives/xcp/ses-A/xcp_minimal_aroma/sub-CUPS003/sub-CUPS003_ses-A_quality_aroma.csv'  # Replace with the actual path to CSV file
+csv_file_path = 'PipelineOutputs/bids/derivatives/xcp/ses-A/xcp_minimal_aroma/'+cups_id+"/sub-CUPS003/cups_id+'_ses-A_quality_aroma.csv'  
+# Replace with the actual path to CSV file
 
-# Define the path to your CSV file
-csv_file_path = 'your_csv_file.csv'  # Replace with the actual path to your CSV file
+if DEBUG:
+  print('DEBUG: csv_file_path='+csv_file_path)
 
 # Initialize an empty dictionary to store the key-value pairs
 data_dict = {}
