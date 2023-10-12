@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import os
 
 def check_file_exist(file_path):
