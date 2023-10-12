@@ -54,6 +54,6 @@ except FileNotFoundError:
 for key, value in data_dict.items():
     print(f"Key: {key}, Value: {value}")
 
-print(key1+"="+data_dict{key1}+"\n")
-print(key2+"="+data_dict{key1}+"\n")
-print(key3+"="+data_dict{key1}+"\n")
+print(key1+"="+data_dict[key1]+"\n")
+print(key2+"="+data_dict[key2]+"\n")
+print(key3+"="+data_dict[key3]+"\n")
