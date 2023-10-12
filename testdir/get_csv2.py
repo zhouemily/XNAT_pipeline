@@ -1,5 +1,13 @@
+#!/usr/bin/env python
+#
+#  #!/usr/local/bin/python absolute path for python this line can replace code at line one
+#  The way at line one is better: it use env utility to invoke python with relative path (python could locate at /usr/bin or /usr/local/bin, etc
+#
 
+import os
+import csv
 
+DEBUG=1
 
 # Define the path to your CSV file
 csv_file_path = 'your_csv_file.csv'  # Replace with the actual path to your CSV file
