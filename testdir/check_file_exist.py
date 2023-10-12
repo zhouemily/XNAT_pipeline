@@ -13,7 +13,8 @@ def check_file_exist(file_path):
         print(f"The file '{file_path}' does not exist.")
 
 # Example usage:
-cups_id=
+root_path=" "
+cups_id="sub-CUPS003"
 fname=rootpath+"PipelineOutputs/bids/derivatives/fmriprep/"cups_id+"/figures/"+cups_id+"_ses-A_task-rest_dir-PA_run-1_desc-sdc_bold.svg"
 fname2=root_path+"PipelineOutputs/bids/derivatives/qsiprep/"+cups_id+"/figures/"+cups_id+"_ses-A_run-1_desc-sdc_b0.svg"
 #or list of files:
