@@ -16,14 +16,8 @@ sub-CUPS003/sub-CUPS003.png
 
 For resting-state fMRI:
 
-
 Image:
 PipelineOutputs/bids/derivatives/fmriprep/sub-CUPS003/figures/sub-CUPS003_ses-A_task-rest_dir-PA_run-1_desc-carpetplot_bold.svg
-
-
-
-
-
 
 
 Table:
@@ -35,20 +29,12 @@ motionDVCorrFinal
 estimatedLostTemporalDOF
 
 
-Just a check mark that the susceptibility distortion correction was applied, as indicated by the existence of this file: PipelineOutputs/bids/derivatives/fmriprep/sub-CUPS003/figures/sub-CUPS003_ses-A_task-rest_dir-PA_run-1_desc-sdc_bold.svg
+Just a check mark that the susceptibility distortion correction was applied, as indicated by the existence of this file: 
+PipelineOutputs/bids/derivatives/fmriprep/sub-CUPS003/figures/sub-CUPS003_ses-A_task-rest_dir-PA_run-1_desc-sdc_bold.svg
 
-
-
-…
-
-
-For diffusion-weighted imaging (DWI):
-
-
+*For diffusion-weighted imaging (DWI):
 Image:
 PipelineOutputs/bids/derivatives/qsiprep/sub-CUPS003/figures/sub-CUPS003_ses-A_run-1_carpetplot.svg
-
-
 
 Table:
 The values for raw_coherence_index and t1_coherence_index (final value should be higher - https://pubmed.ncbi.nlm.nih.gov/30682379/) from:
@@ -57,10 +43,5 @@ PipelineOutputs/bids/derivatives/qsiprep/sub-CUPS003/ses-A/dwi/sub-CUPS003_ses-A
 
 sub-CUPS003_ses-A_run-1_desc-ImageQC_dwi
 
-
-
 Just a check mark that the susceptibility distortion correction was applied, as indicated by the existence of this file:
 PipelineOutputs/bids/derivatives/qsiprep/sub-CUPS003/figures/sub-CUPS003_ses-A_run-1_desc-sdc_b0.svg
-
-
-
