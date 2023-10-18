@@ -36,7 +36,7 @@ class Pipeline:
             msg="The file " + file_path + " does NOT exists."
             return msg
 
-    def get_keyValue(self, key,file_path)
+    def get_keyValue(self, key,file_path):
         if DEBUG:
             print('DEBUG: csv_file_path='+file_path)
 
