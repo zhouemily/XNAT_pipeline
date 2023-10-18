@@ -46,7 +46,7 @@ class Pipeline:
 
         # Check if the CSV file exists
         try:
-            with open(csv_file_path, 'r') as csvfile:
+            with open(file_path, 'r') as csvfile:
                 lines = csvfile.readlines()
                 if DEBUG:
                     print("DEBUG: print out csv file content\n")
@@ -65,7 +65,7 @@ class Pipeline:
                     print("The CSV file does not contain enough data.")
         
         except FileNotFoundError:
-            print(f"The CSV file '{csv_file_path}' does not exist.")
+            print(f"The CSV file '{file_path}' does not exist.")
 
         # Print the extracted key-value pairs
         if DEBUG:
