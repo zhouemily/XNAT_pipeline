@@ -56,11 +56,11 @@ class Pipeline:
                 # Check if there are at least two lines in the file
                 if len(lines) >= 2:
                     # Extract the keys (line 1) and values (line 2)
-                    keys = lines[0].strip().split(',')
-                    values = lines[1].strip().split(',')
+                    k = lines[0].strip().split(',')
+                    v = lines[1].strip().split(',')
             
                     # Create key-value pairs and store them in the dictionary
-                    data_dict = dict(zip(keys, values))
+                    data_dict = dict(zip(k, v))
                 else:
                     print("The CSV file does not contain enough data.")
         
@@ -69,8 +69,8 @@ class Pipeline:
 
         # Print the extracted key-value pairs
         if DEBUG:
-            for key, value in data_dict.items():
-                print(f"Key: {key}, Value: {value}")
+            for k, v in data_dict.items():
+                print(f"Key: {k}, Value: {v}")
 
             print(key+"="+data_dict[key]+"\n")
         return data_dict[key]
