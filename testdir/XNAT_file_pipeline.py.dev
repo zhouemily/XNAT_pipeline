@@ -83,7 +83,7 @@ class Util:
         self.png_fname=''
         self.svg_fname1=''
         self.svg_fname2=''
-        self.cvs_fname=''
+        self.csv_fname=''
         self.keys=["motionDVCorrInit", "motionDVCorrFinal", "estimatedLostTemporalDOF"]
         self.fname1_check=''
         self.fname2_check=''
@@ -139,7 +139,7 @@ class Util:
             #set default:
             self.fname_check1=self.root_path+"fmriprep/"+cups_id+"/figures/"+cups_id+"_ses-A_task-rest_dir-PA_run-1_desc-sdc_bold.svg"
             self.fname_check2=self.root_path+"qsiprep/"+cups_id+"/figures/"+cups_id+"_ses-A_run-1_desc-sdc_b0.svg"
-            self.cvs_fname=self.root_path+ 'xcp/ses-A/xcp_minimal_aroma/'+cups_id+"/"+cups_id+'_ses-A_quality_aroma.csv'
+            self.csv_fname=self.root_path+ 'xcp/ses-A/xcp_minimal_aroma/'+cups_id+"/"+cups_id+'_ses-A_quality_aroma.csv'
             if self.debug:
                 print(self.cups_id+"\n")
                 print(self.png_fname+"\n")
