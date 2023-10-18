@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import sys
 import csv
 import subprocess as sp
 import cairosvg
