@@ -186,8 +186,9 @@ def main():
     pl=Pipeline()             #create instance from Pipeline class
     ut=Util()                 #create instance from Util class
     ut.process_args()
-    if ut.debug or ut.help:
+    if ut.help:
         ut.print_help()
+        exit(1)
      
     pl.get_keyValue(ut.keys[0],ut.csv_fname)
     pl.get_keyValue(ut.keys[1],ut.csv_fname)
@@ -207,7 +208,7 @@ def main():
     # Resize and convert the first SVG 
     pl.svg_to_png(ut.svg_fname1, 'temp1.png', png_image.width, png_image.height)
     # Resize and convert the second SVG 
-    pl.svg_to_png(u.svg_fname2, 'temp2.png', png_image.width, png_image.height)
+    pl.svg_to_png(ut.svg_fname2, 'temp2.png', png_image.width, png_image.height)
     image1 = Image.open('temp1.png')
     image2 = Image.open('temp2.png')
 
