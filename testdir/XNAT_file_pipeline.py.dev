@@ -129,12 +129,12 @@ class Util:
                 i=x.index("-fsvg1")
                 self.svg_fname1=x[i+1]
             else:
-                self.png_fname=self.root_path+"fmriprep/"+self.cups_id+"/figures/"+self.cups_id+'_ses-A_task-rest_dir-PA_run-1_desc-carpetplot_bold.svg'
+                self.svg_fname1=self.root_path+"fmriprep/"+self.cups_id+"/figures/"+self.cups_id+'_ses-A_task-rest_dir-PA_run-1_desc-carpetplot_bold.svg'
             if "-fsvg2" in x:
                 i=x.index("-fsvg2")
                 self.svg_fname2=x[i+1]
             else:
-                self.png_fname=self.root_path+"qsiprep/"+self.cups_id+"/figures/"+self.cups_id+'_ses-A_run-1_carpetplot.svg'
+                self.svg_fname2=self.root_path+"qsiprep/"+self.cups_id+"/figures/"+self.cups_id+'_ses-A_run-1_carpetplot.svg'
       
             #set default:
             self.fname_check1=self.root_path+"fmriprep/"+self.cups_id+"/figures/"+self.cups_id+"_ses-A_task-rest_dir-PA_run-1_desc-sdc_bold.svg"
