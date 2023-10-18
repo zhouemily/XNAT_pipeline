@@ -118,18 +118,18 @@ class Util:
             else:
                 self.root_path="/System/Volumes/Data/Volumes/CUPS/PipelineOutputs/bids/derivatives/"
 
-            if "-fpng"
+            if "-fpng" in x:
                 i=x.index("-fpng")
                 self.png_fname=x[i+1]
             else:
                 self.png_fname=self.root_path+"fsqc/screenshots/"+cups_id+"/"+cups_id+'.png'
 
-            if "-fsvg1"
+            if "-fsvg1" in x:
                 i=x.index("-fsvg1")
                 self.svg_fname1=x[i+1]
             else:
                 self.png_fname=self.root_path+"fmriprep/"+cups_id+"/figures/"+cups_id+'_ses-A_task-rest_dir-PA_run-1_desc-carpetplot_bold.svg'
-            if "-fsvg2"
+            if "-fsvg2" in x:
                 i=x.index("-fsvg2")
                 self.svg_fname2=x[i+1]
             else:
