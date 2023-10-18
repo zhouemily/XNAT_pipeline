@@ -123,23 +123,23 @@ class Util:
                 i=x.index("-fpng")
                 self.png_fname=x[i+1]
             else:
-                self.png_fname=self.root_path+"fsqc/screenshots/"+cups_id+"/"+cups_id+'.png'
+                self.png_fname=self.root_path+"fsqc/screenshots/"+self.cups_id+"/"+self.cups_id+'.png'
 
             if "-fsvg1" in x:
                 i=x.index("-fsvg1")
                 self.svg_fname1=x[i+1]
             else:
-                self.png_fname=self.root_path+"fmriprep/"+cups_id+"/figures/"+cups_id+'_ses-A_task-rest_dir-PA_run-1_desc-carpetplot_bold.svg'
+                self.png_fname=self.root_path+"fmriprep/"+self.cups_id+"/figures/"+self.cups_id+'_ses-A_task-rest_dir-PA_run-1_desc-carpetplot_bold.svg'
             if "-fsvg2" in x:
                 i=x.index("-fsvg2")
                 self.svg_fname2=x[i+1]
             else:
-                self.png_fname=self.root_path+"qsiprep/"+cups_id+"/figures/"+cups_id+'_ses-A_run-1_carpetplot.svg'
+                self.png_fname=self.root_path+"qsiprep/"+self.cups_id+"/figures/"+self.cups_id+'_ses-A_run-1_carpetplot.svg'
       
             #set default:
-            self.fname_check1=self.root_path+"fmriprep/"+cups_id+"/figures/"+cups_id+"_ses-A_task-rest_dir-PA_run-1_desc-sdc_bold.svg"
-            self.fname_check2=self.root_path+"qsiprep/"+cups_id+"/figures/"+cups_id+"_ses-A_run-1_desc-sdc_b0.svg"
-            self.csv_fname=self.root_path+ 'xcp/ses-A/xcp_minimal_aroma/'+cups_id+"/"+cups_id+'_ses-A_quality_aroma.csv'
+            self.fname_check1=self.root_path+"fmriprep/"+self.cups_id+"/figures/"+self.cups_id+"_ses-A_task-rest_dir-PA_run-1_desc-sdc_bold.svg"
+            self.fname_check2=self.root_path+"qsiprep/"+self.cups_id+"/figures/"+self.cups_id+"_ses-A_run-1_desc-sdc_b0.svg"
+            self.csv_fname=self.root_path+ 'xcp/ses-A/xcp_minimal_aroma/'+self.cups_id+"/"+self.cups_id+'_ses-A_quality_aroma.csv'
             if self.debug:
                 print(self.cups_id+"\n")
                 print(self.png_fname+"\n")
