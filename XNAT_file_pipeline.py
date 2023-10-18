@@ -109,7 +109,8 @@ class Util:
                 i=x.index("-id")
                 self.cups_id=x[i+1]
             else:
-                tprint("cups id is needed\n")
+                tprint("cups id is needed:\n")
+                print("example: ./Xnat_file_pipeline.py -id sub-CUPS003\n")
                 self.print_help()
                 exit(1)
             
