@@ -178,7 +178,7 @@ def tprint(*args):
     tempa = ' '.join(str(a) for a in args)
     print(str(datetime.now().strftime('%Y-%m-%d %H:%M%S')) + " " + tempa)        
 
-def main:
+def main():
     print("Program Started")
     # Load the PNG and resized SVGs
    
