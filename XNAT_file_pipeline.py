@@ -86,8 +86,8 @@ class Util:
         self.svg_fname2=''
         self.csv_fname=''
         self.keys=["motionDVCorrInit", "motionDVCorrFinal", "estimatedLostTemporalDOF"]
-        self.fname1_check=''
-        self.fname2_check=''
+        self.file_check1=''
+        self.file_check2=''
         self.debug=0
         self.help=0
         self.verbose=0
@@ -141,8 +141,8 @@ class Util:
                 self.svg_fname2=self.root_path+"qsiprep/"+self.cups_id+"/figures/"+self.cups_id+'_ses-A_run-1_carpetplot.svg'
       
             #set default:
-            self.fname_check1=self.root_path+"fmriprep/"+self.cups_id+"/figures/"+self.cups_id+"_ses-A_task-rest_dir-PA_run-1_desc-sdc_bold.svg"
-            self.fname_check2=self.root_path+"qsiprep/"+self.cups_id+"/figures/"+self.cups_id+"_ses-A_run-1_desc-sdc_b0.svg"
+            self.file_check1=self.root_path+"fmriprep/"+self.cups_id+"/figures/"+self.cups_id+"_ses-A_task-rest_dir-PA_run-1_desc-sdc_bold.svg"
+            self.file_check2=self.root_path+"qsiprep/"+self.cups_id+"/figures/"+self.cups_id+"_ses-A_run-1_desc-sdc_b0.svg"
             self.csv_fname=self.root_path+ 'xcp/ses-A/xcp_minimal_aroma/'+self.cups_id+"/"+self.cups_id+'_ses-A_quality_aroma.csv'
             if self.debug:
                 print(self.cups_id+"\n")
@@ -194,9 +194,9 @@ def main():
     if ut.help:
         ut.print_help()
         exit(1)
-    pl.get_keyValue(ut.keys[0],ut.csv_fname)
-    pl.get_keyValue(ut.keys[1],ut.csv_fname)
-    pl.get_keyValue(ut.keys[2],ut.csv_fname)
+    kv1 = pl.get_keyValue(ut.keys[0],ut.csv_fname)
+    kv2 = pl.get_keyValue(ut.keys[1],ut.csv_fname)
+    kv3 = pl.get_keyValue(ut.keys[2],ut.csv_fname)
 
     png_image = Image.open(ut.png_fname)
     # Define the new dimensions (width and height) you want for the resized image
@@ -234,13 +234,14 @@ def main():
     draw = ImageDraw.Draw(stacked_image)
     # Use a system font and specify the size
     font_size = 36  # Adjust the font size as needed
-    #font = ImageFont.truetype("arial.ttf", font_size)  # Replace "arial.ttf" with your desired font and font path
-    font = ImageFont.truetype("/System/Library/Fonts/Geneva.ttf", font_size) 
+    font = ImageFont.truetype("/System/Library/Fonts/Geneva.ttf", font_size) #full path to fond is needed here 
 
     # Specify the position and text to be added
     #text_position = (500, png_image.height)  # Adjust the position as needed
-    text = "add needed text or check mark here"  # Replace with the desired text
+    #text = "add needed text or check mark here"  # Replace with the desired text
     #draw.text(text_position, text, fill="white", font=font)
+    text1 = pl.check_file_exist(ut.file_check1) # check if the required file is exist
+    text2 = pl.check_file_exist(ut.file_check2)
 
     # Calculate the position to center the text horizontally and vertically
     ##text_width, text_height = draw.textsize(text, font)
@@ -249,13 +250,15 @@ def main():
     y = png_image.height
 
     # Add text to the image at the calculated position
-    #draw.text((x, y), text, fill="white", font=font)
-    draw.text((x, y), text, fill="red", font=font) ##first text string
-    draw.text((x, y+png_image.height+50), text, fill="red", font=font) ##another text position
+    draw.text((x, y), text1, fill="red", font=font) ##first text string from file_check1
+    draw.text((x, y+png_image.height+50), text2, fill="red", font=font) ##another text position
+    draw.text((0,y+100), ut.keys[0]+"="+kv1, fill="blue", font=font)
+    draw.text((0,y+200), ut.keys[1]+"="+kv2, fill="blue", font=font)
+    draw.text((0,y+300), ut.keys[2]+"="+kv3, fill="blue", font=font)
     #################################################
 
     # Save the stacked image
-    stacked_image.save('stacked_image.png')
+    stacked_image.save(ut.cups_id+'stacked_image.png')
 
     # Clean up temporary PNG files
     image1.close()
