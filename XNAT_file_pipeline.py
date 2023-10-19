@@ -155,7 +155,7 @@ class Util:
 
     def print_help(self):
         msg="""
-            Usage: ./program -id cups_id [-h] [-D] [-v] [-fpng png_fname] [-fsvg_fname1] [-fsvg_fname2]
+            Usage: ./XNAT_file_pipeline.py -id cups_id [-h] [-D] [-v] [-fpng png_fname] [-fsvg1 svg_fname1] [-fsvg2 svg_fname2]
             -h			print help menu
             -id [cups_id]       input cups_id
             -D                  run debug mode
