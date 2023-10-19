@@ -269,7 +269,7 @@ def main():
     #os.remove(image2)
     #os.remove('resized_image.png')
 
-    print("Stacked image saved as "+ut.cups_id+ 'stacked_image.png'")
+    print("Stacked image saved as "+ut.cups_id+ 'stacked_image.png')
     print("End of Program")
 
 if __name__=="__main__":
