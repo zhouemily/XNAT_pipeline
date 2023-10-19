@@ -210,9 +210,9 @@ def main():
     resized_image.save('resized_image.png')
 
     # Resize and convert the first SVG 
-    pl.svg_to_png(ut.svg_fname1, 'temp1.png', png_image.width, png_image.height)
+    pl.svg_to_png(ut.svg_fname1, 'temp1.png', png_image.width *1.5, png_image.height*1.5)
     # Resize and convert the second SVG 
-    pl.svg_to_png(ut.svg_fname2, 'temp2.png', png_image.width, png_image.height)
+    pl.svg_to_png(ut.svg_fname2, 'temp2.png', png_image.width *1.5, png_image.height *1.5)
     image1 = Image.open('temp1.png')
     image2 = Image.open('temp2.png')
 
