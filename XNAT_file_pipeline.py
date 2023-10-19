@@ -164,7 +164,7 @@ class Util:
             """
         print(msg)
 
-    def run_cmd(self):
+    def run_cmd(self, cmd):
         """
         This is a function wrapper using python subprocess module
         Input: cmd => command line input
@@ -218,7 +218,7 @@ def main():
 
     # Determine the size of the stacked image
     width = png_image.width
-    height = png_image.height * 3  # Three times the height of the PNG image
+    height = png_image.height * 5  # five times the height of the PNG image
 
     # Create a new image with the determined size
     stacked_image = Image.new('RGB', (width, height))
@@ -267,8 +267,9 @@ def main():
     # Clean up temporary files
     #os.remove(image1)
     #os.remove(image2)
+    #os.remove('resized_image.png')
 
-    print("Stacked image saved as 'stacked_image.png'")
+    print("Stacked image saved as "+ut.cups_id+ 'stacked_image.png'")
     print("End of Program")
 
 if __name__=="__main__":
