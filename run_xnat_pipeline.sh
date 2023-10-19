@@ -7,7 +7,7 @@ if [ "$#" -ne 0 ]; then
 fi
 
 # Define an array of strings
-strings=("sub-CUPS003" "sub-CUPS004" "sub-CUPS005" "sub-CUPS006" "sub-CUPS007")
+strings=("sub-CUPS003" "sub-CUPS004" "sub-CUPS005" "sub-CUPS008" "sub-CUPS009")
 
 # Loop through the array and run the Python script with each string
 for string_arg in "${strings[@]}"; do
