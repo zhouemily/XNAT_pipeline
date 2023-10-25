@@ -105,7 +105,7 @@ class Util:
         self.csv_fname1=''
         self.csv_fname2=''
         self.keys1=["motionDVCorrInit", "motionDVCorrFinal", "estimatedLostTemporalDOF"]
-        self.keys2=["Raw_coherence_index","T1_coherence_index"] 
+        self.keys2=["raw_coherence_index","t1_coherence_index"] 
         self.file_check1=''
         self.file_check2=''
         self.debug=0
