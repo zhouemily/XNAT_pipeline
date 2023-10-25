@@ -8,20 +8,33 @@ import cairosvg
 from PIL import Image, ImageDraw, ImageFont
 from datetime import datetime
 DEBUG=1
+DEBUG2=0      #for local test only: set it to 1 only for local data
 
 class Pipeline:
     def __init__(self):
         self.name=''
         self.data=[] 
 
-    def svg_to_png(self, svg_file, png_file):
-        # Convert SVG files to PNG
-        with open(svg_file, 'rb') as svg:
-            cairosvg.svg2png(file_obj=svg, write_to=png_file)
+    def svg_to_png(self,svg_file, png_file, width=None, height=None, remove_margins=False):
+        # Define the options for rendering
+        options = {}
+        if width and height:
+            options['output_width'] = width
+            options['output_height'] = height
 
-    def svg_to_png(self, svg_file, png_file, width, height):
-        # Function to resize and convert SVG files to PNG 
-        cairosvg.svg2png(file_obj=open(svg_file, 'rb'), write_to=png_file, output_width=width, output_height=height)
+        if DEBUG:
+            print("svg2png::png_file="+png_file+" width="+str(width)+" height="+str(height)+" remove_margins="+str(remove_margins))
+        # Convert the SVG to PNG 
+        cairosvg.svg2png(url=svg_file, write_to=png_file, **options)
+
+        # Optionally remove margins
+        if remove_margins:
+            # Open the PNG and remove transparent margins
+            img = Image.open(png_file)
+            img = img.crop(img.getbbox())
+            img.save(png_file)
+        if DEBUG:
+            print(png_file+ " size::width="+ str(img.width)+" height="+str(img.height))
 
     def check_file_exist(self, file_path):
         """
@@ -31,20 +44,21 @@ class Pipeline:
         """
         if os.path.exists(file_path):
             print(f"The file '{file_path}' exists.")
-            msg="The file " + file_path + " exists."
+            msg="Susceptibility distortion correction: Applied"
             return msg
         else:
             print(f"The file '{file_path}' does not exist.")
-            msg="The file " + file_path + " does NOT exists."
+            msg="Susceptibility distortion correction: Not Applied"
             return msg
 
     def get_keyValue(self, key,file_path):
-        if DEBUG:
-            print('DEBUG: csv_file_path='+file_path)
-
         # Initialize an empty dictionary to store the key-value pairs
         data_dict = {}
-
+        if DEBUG:
+            print('DEBUG: csv_file_path='+file_path)
+            if len(file_path)==0:
+                return "csv_file not found"
+             
         # Check if the CSV file exists
         try:
             with open(file_path, 'r') as csvfile:
@@ -64,9 +78,13 @@ class Pipeline:
                     data_dict = dict(zip(k, v))
                 else:
                     print("The CSV file does not contain enough data.")
+                    if DEBUG2:
+                        return "CSV file does not contian enough data"
         
         except FileNotFoundError:
             print(f"The CSV file '{file_path}' does not exist.")
+            if DEBUG2:
+                return "CSV file Not Exist"
 
         # Print the extracted key-value pairs
         if DEBUG:
@@ -84,8 +102,10 @@ class Util:
         self.png_fname=''
         self.svg_fname1=''
         self.svg_fname2=''
-        self.csv_fname=''
-        self.keys=["motionDVCorrInit", "motionDVCorrFinal", "estimatedLostTemporalDOF"]
+        self.csv_fname1=''
+        self.csv_fname2=''
+        self.keys1=["motionDVCorrInit", "motionDVCorrFinal", "estimatedLostTemporalDOF"]
+        self.keys2=["Raw_coherence_index","T1_coherence_index"] 
         self.file_check1=''
         self.file_check2=''
         self.debug=0
@@ -121,35 +141,49 @@ class Util:
                 i=x.index("-d")
                 self.root_path=x[i+1]
             else:
-                self.root_path="/System/Volumes/Data/Volumes/CUPS/PipelineOutputs/bids/derivatives/"
+                if DEBUG2:
+                    self.root_path="/Users/zhou/uc/mri/xnat/XNAT_pipeline-main/testdir"
+                else:
+                    self.root_path="/System/Volumes/Data/Volumes/CUPS/PipelineOutputs/bids/derivatives/"
 
             if "-fpng" in x:
                 i=x.index("-fpng")
                 self.png_fname=x[i+1]
             else:
-                self.png_fname=self.root_path+"fsqc/screenshots/"+self.cups_id+"/"+self.cups_id+'.png'
+                if DEBUG2:
+                    self.png_fname=self.root_path+"/"+self.cups_id+'.png'
+                else:
+                    self.png_fname=self.root_path+"fsqc/screenshots/"+self.cups_id+"/"+self.cups_id+'.png'
 
             if "-fsvg1" in x:
                 i=x.index("-fsvg1")
                 self.svg_fname1=x[i+1]
             else:
-                self.svg_fname1=self.root_path+"fmriprep/"+self.cups_id+"/figures/"+self.cups_id+'_ses-A_task-rest_dir-PA_run-1_desc-carpetplot_bold.svg'
+                if DEBUG2:
+                    self.svg_fname1=self.root_path+"/"+self.cups_id+'_ses-A_task-rest_dir-PA_run-1_desc-carpetplot_bold.svg'
+                else:
+                    self.svg_fname1=self.root_path+"fmriprep/"+self.cups_id+"/figures/"+self.cups_id+'_ses-A_task-rest_dir-PA_run-1_desc-carpetplot_bold.svg'
             if "-fsvg2" in x:
                 i=x.index("-fsvg2")
                 self.svg_fname2=x[i+1]
             else:
-                self.svg_fname2=self.root_path+"qsiprep/"+self.cups_id+"/figures/"+self.cups_id+'_ses-A_run-1_carpetplot.svg'
+                if DEBUG2:
+                    self.svg_fname2=self.root_path+"/"+self.cups_id+'_ses-A_run-1_carpetplot.svg'
+                else:
+                    self.svg_fname2=self.root_path+"qsiprep/"+self.cups_id+"/figures/"+self.cups_id+'_ses-A_run-1_carpetplot.svg'
       
             #set default:
             self.file_check1=self.root_path+"fmriprep/"+self.cups_id+"/figures/"+self.cups_id+"_ses-A_task-rest_dir-PA_run-1_desc-sdc_bold.svg"
             self.file_check2=self.root_path+"qsiprep/"+self.cups_id+"/figures/"+self.cups_id+"_ses-A_run-1_desc-sdc_b0.svg"
-            self.csv_fname=self.root_path+ 'xcp/ses-A/xcp_minimal_aroma/'+self.cups_id+"/"+self.cups_id+'_ses-A_quality_aroma.csv'
+            self.csv_fname1=self.root_path+ 'xcp/ses-A/xcp_minimal_aroma/'+self.cups_id+"/"+self.cups_id+'_ses-A_quality_aroma.csv'
+            self.csv_fname2=self.root_path+ 'qsiprep/'+self.cups_id+'/ses-A/dwi/'+self.cups_id+'_ses-A_run-1_desc-ImageQC_dwi.csv'
             if self.debug:
                 print(self.cups_id+"\n")
                 print(self.png_fname+"\n")
                 print(self.svg_fname1+"\n")
                 print(self.svg_fname2+"\n")
-                print(self.csv_fname+"\n")
+                print(self.csv_fname1+"\n")
+                print(self.csv_fname2+"\n")
                 print(self.fname_check1+"\n")
                 print(self.fname_check2+"\n")
 
@@ -194,25 +228,22 @@ def main():
     if ut.help:
         ut.print_help()
         exit(1)
-    kv1 = pl.get_keyValue(ut.keys[0],ut.csv_fname)
-    kv2 = pl.get_keyValue(ut.keys[1],ut.csv_fname)
-    kv3 = pl.get_keyValue(ut.keys[2],ut.csv_fname)
-
     png_image = Image.open(ut.png_fname)
     # Define the new dimensions (width and height) you want for the resized image
-    new_width = int(0.8 * png_image.width)  # Adjust to your desired width
-    new_height = int(0.8 * png_image.height)  # Adjust to your desired height
-
+    #new_width = int(0.8 * png_image.width)  # Adjust to your desired width
+    #new_height = int(0.8 * png_image.height)  # Adjust to your desired height
     # Resize the image
-    resized_image = png_image.resize((new_width, new_height))
-
+    #resized_image = png_image.resize((new_width, new_height))
     # Save the resized image
-    resized_image.save('resized_image.png')
+    #resized_image.save('resized_image.png')
 
-    # Resize and convert the first SVG 
-    pl.svg_to_png(ut.svg_fname1, 'temp1.png', png_image.width *1.5, png_image.height*1.5)
-    # Resize and convert the second SVG 
-    pl.svg_to_png(ut.svg_fname2, 'temp2.png', png_image.width *1.5, png_image.height *1.5)
+    # Resize and convert the first SVG  to PNG
+    pl.svg_to_png(ut.svg_fname1, 'temp1.png', width=png_image.width*2, height=png_image.height*1.5, remove_margins=True)
+    # Resize and convert the second SVG to PNG 
+    pl.svg_to_png(ut.svg_fname2, 'temp2.png', width=png_image.width*2, height=png_image.height*1.5, remove_margins=True)
+    if DEBUG:
+        print("svg2png_image.width="+str(png_image.width*2))
+        print("svg2png_image.height="+str(png_image.height*1.5))
     image1 = Image.open('temp1.png')
     image2 = Image.open('temp2.png')
 
@@ -220,41 +251,59 @@ def main():
     width = png_image.width
     height = png_image.height * 5  # five times the height of the PNG image
 
+    if DEBUG:
+        print("size statcked image width="+str(width))
+        print("size starcked image height="+str(height))
     # Create a new image with the determined size
     stacked_image = Image.new('RGB', (width, height))
 
     # Paste the PNG and SVG images onto the stacked image
-    #stacked_image.paste(png_image, (0, 0)) 
-    stacked_image.paste(resized_image, (300, 0)) 
-    stacked_image.paste(image1, (0, png_image.height+50))
-    stacked_image.paste(image2, (0, 2 * png_image.height+50))
+    stacked_image.paste(png_image, (0, 0)) 
+    stacked_image.paste(image1, (0, png_image.height)) #svg1_2_png paste
 
-    #######################################################
     # Create a drawing context to add text
     draw = ImageDraw.Draw(stacked_image)
     # Use a system font and specify the size
     font_size = 36  # Adjust the font size as needed
     font = ImageFont.truetype("/System/Library/Fonts/Geneva.ttf", font_size) #full path to fond is needed here 
 
-    # Specify the position and text to be added
-    #text_position = (500, png_image.height)  # Adjust the position as needed
-    #text = "add needed text or check mark here"  # Replace with the desired text
-    #draw.text(text_position, text, fill="white", font=font)
+    kv1 = pl.get_keyValue(ut.keys1[0],ut.csv_fname1)
+    if len(kv1)==0:
+        kv1=" not found"
+    kv2 = pl.get_keyValue(ut.keys1[1],ut.csv_fname1)
+    if len(kv2)==0:
+        kv2=" not found"
+    kv3 = pl.get_keyValue(ut.keys1[2],ut.csv_fname1)
+    if len(kv3)==0:
+        kv3=" not found"
+
+    x=0
+    color="yellow"
+    y1 = png_image.height+image1.height+50
+    draw.text((0,y1), ut.keys1[0]+"="+kv1, fill=color, font=font)
+    draw.text((0,y1+50), ut.keys1[1]+"="+kv2, fill=color, font=font)
+    draw.text((0,y1+100), ut.keys1[2]+"="+kv3, fill=color, font=font)
     text1 = pl.check_file_exist(ut.file_check1) # check if the required file is exist
-    text2 = pl.check_file_exist(ut.file_check2)
-
-    # Calculate the position to center the text horizontally and vertically
-    ##text_width, text_height = draw.textsize(text, font)
-    x = width / 2
-    #y = (height - text_height) // 2
-    y = png_image.height
-
     # Add text to the image at the calculated position
-    draw.text((x, y), text1, fill="red", font=font) ##first text string from file_check1
-    draw.text((x, y+png_image.height+50), text2, fill="red", font=font) ##another text position
-    draw.text((0,y+100), ut.keys[0]+"="+kv1, fill="blue", font=font)
-    draw.text((0,y+200), ut.keys[1]+"="+kv2, fill="blue", font=font)
-    draw.text((0,y+300), ut.keys[2]+"="+kv3, fill="blue", font=font)
+    y2=y1+150
+    draw.text((x, y2), text1, fill="red", font=font) ##first text string from file_check1
+
+    y3=y2+100
+    stacked_image.paste(image2, (0, y3)) #svg2_2_png paste
+
+    y4=y3+image2.height+50
+    kv_1 = pl.get_keyValue(ut.keys2[0],ut.csv_fname2)
+    if len(kv_1)==0:
+        kv_1=" not found"
+    kv_2 = pl.get_keyValue(ut.keys2[1],ut.csv_fname2)
+    if len(kv_2)==0:
+        kv_2=" not found"
+    draw.text((0,y4), ut.keys2[0]+"="+kv_1, fill=color, font=font)
+    draw.text((0,y4+50), ut.keys2[1]+"="+kv_2, fill=color, font=font)
+
+    y5=y4+100
+    text2 = pl.check_file_exist(ut.file_check2)
+    draw.text((x, y5), text2, fill="red", font=font) ##another text position
     #################################################
 
     # Save the stacked image
