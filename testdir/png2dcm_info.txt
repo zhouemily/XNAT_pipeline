@@ -1,0 +1,36 @@
+# sources of sample dcm in each session
+
+AAHead_Scout_32ch-head-coil_MPR_sag 
+fmap_task-rest_acq-7TfMRI_dir-AP 
+
+# maintain from sample dcm
+(0010,0010) 	Patient’s Name 	CUPS_008
+(0010,0020) 	Patient ID 	CUPS_008_A
+(0008,1030) 	Study Description 	CUPS
+(0008,0020) 	Study Date 	20211203
+(0008,0021) 	Series Date 	20211203
+(0020,000D) 	Study Instance UID 	1.3.12.2.1107.5.2.0.79030.30000021120314124240800000013
+(0008,0016) 	SOP Class UID 	1.2.840.10008.5.1.4.1.1.4
+
+
+# to change for PNG QC file:
+(0008,0008) 	Image Type 	DERIVED
+(0028,0004) 	Photometric Interpretation 	"RGB"
+(0028,0002) 	Samples per Pixel 	1
+(0028,0004) 	Photometric Interpretation 	MONOCHROME2
+(0028,0010) 	Rows 	300
+(0028,0011) 	Columns 	306
+(0028,0030) 	Pixel Spacing 	0.74666666984558\0.74666666984558
+(0028,0100) 	Bits Allocated 	16
+(0028,0101) 	Bits Stored 	12
+(0028,0102) 	High Bit 	11
+(0028,0103) 	Pixel Representation 	0
+(0028,0106) 	Smallest Image Pixel Value 	0
+(0028,0107) 	Largest Image Pixel Value 	4078
+(0028,1050) 	Window Center 	1918
+(0028,1051) 	Window Width 	2784
+(0028,1055) 	Window Center & Width Explanation 	
+
+# link to code
+https://github.com/pydicom/pydicom/issues/939#issuecomment-532475747
+
