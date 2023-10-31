@@ -12,7 +12,7 @@ from pydicom.datadict import tag_for_keyword
 import numpy as np
 
 DEBUG=0
-DEBUG2=1      #for local test only: set it to 1 only for local data
+DEBUG2=0      #for local test only: set it to 1 only for local data
 
 class Pipeline:
     def __init__(self):
