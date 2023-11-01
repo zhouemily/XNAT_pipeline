@@ -450,6 +450,7 @@ def main():
     new_dicom = pydicom.Dataset()
     # Add the sample DICOM metadata as DataElements to the new dataset
     if ut.debug:
+        print("dicom_metadata:\n")
         print(ut.dicom_metadata)
     for tag, value in ut.dicom_metadata.items():
         #data_element = pydicom.dataelem.DataElement(tag, value)
