@@ -11,7 +11,7 @@ import pydicom
 from pydicom.datadict import tag_for_keyword
 import numpy as np
 
-DEBUG=0
+DEBUG=1
 DEBUG2=0      #for local test only: set it to 1 only for local data
 
 class Pipeline:
@@ -227,7 +227,7 @@ class Util:
                     self.root_path="/Users/zhou/uc/mri/xnat/XNAT_pipeline-main/testdir/"
                 else:
                     self.root_path="/System/Volumes/Data/Volumes/CUPS/PipelineOutputs/bids/derivatives/"
-
+                print("root_path is set to: "+self.root_path)
             if "-fpng" in x:
                 i=x.index("-fpng")
                 self.png_fname=x[i+1]
@@ -332,7 +332,8 @@ def main():
             (0x0020, 0x000D): "1.3.12.2.1107.5.2.0.79030.30000021120314124240800000013",  # Study Instance UID
             (0x0008, 0x0016): "1.2.840.10008.5.1.4.1.1.4",  # SOP Class UID
     }
-    if DEBUG:
+    if ut.debug:
+        print("dicom_metadata:\n")
         print(ut.dicom_metadata)
 
     png_image = Image.open(ut.png_fname)
@@ -372,9 +373,9 @@ def main():
     width = png_image.width
     height = png_image.height * 5  # five times the height of the PNG image
 
-    if DEBUG:
-        print("size statcked image width="+str(width))
-        print("size starcked image height="+str(height))
+    if ut.debug:
+        print("stacked image width="+str(width)+"\n")
+        print("stacked image height="+str(height)+"\n")
     # Create a new image with the determined size
     #stacked_image = Image.new('RGB', (width, height))
     stacked_image = Image.new('RGBA', (width, height))
