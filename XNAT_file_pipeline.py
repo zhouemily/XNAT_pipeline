@@ -11,7 +11,7 @@ import pydicom
 from pydicom.datadict import tag_for_keyword
 import numpy as np
 
-DEBUG=1
+DEBUG=0
 DEBUG2=0      #for local test only: set it to 1 only for local data
 
 class Pipeline:
@@ -274,8 +274,8 @@ class Util:
                 print(self.svg_fname2+"\n")
                 print(self.csv_fname1+"\n")
                 print(self.csv_fname2+"\n")
-                print(self.fname_check1+"\n")
-                print(self.fname_check2+"\n")
+                print(self.file_check1+"\n")
+                print(self.file_check2+"\n")
 
     def print_help(self):
         msg="""
@@ -449,7 +449,8 @@ def main():
     # Create a new DICOM dataset with sample metadata===============
     new_dicom = pydicom.Dataset()
     # Add the sample DICOM metadata as DataElements to the new dataset
-    print(ut.dicom_metadata)
+    if ut.debug:
+        print(ut.dicom_metadata)
     for tag, value in ut.dicom_metadata.items():
         #data_element = pydicom.dataelem.DataElement(tag, value)
         #new_dicom.add(data_element)
