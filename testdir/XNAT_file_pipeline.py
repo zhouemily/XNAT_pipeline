@@ -12,12 +12,15 @@ from pydicom.datadict import tag_for_keyword
 import numpy as np
 
 DEBUG=0
-DEBUG2=1      #for local test only: set it to 1 only for local data
+DEBUG2=0      #for local test only: set it to 1 only for local data
 
 class Pipeline:
     def __init__(self):
         self.name=''
         self.data=[] 
+        self.png=''
+        self.jpeg=''
+        self.dicom=''
 
     def svg_to_png(self,svg_file, png_file, width=None, height=None, remove_margins=False):
         # Define the options for rendering
@@ -98,8 +101,84 @@ class Pipeline:
             print(key+"="+data_dict[key]+"\n")
         return data_dict[key]
 
+    def png2jpg(self,png_file):
+        #convert an png_file to jpeg file which can be convertered to dicom with img2dcm from dcmtk tool set    
+        #img2dcm tool does not support png to dcm directly, see reference documentation for more details
+        #https://support.dcmtk.org/docs/img2dcm.html
+        if DEBUG2:
+            print("input png_file is: "+png_file)
+        im = Image.open('./'+png_file)
+        rgb_im = im.convert('RGB')
+        self.jpg=png_file.replace('png','jpg')
+        rgb_im.save(self.jpg)
+        return self.jpg
+
+    def jpg2dcm(self,jpg_file):
+        #input with dicom dataSet object, and jpg image, return with dicom file
+        #https://support.dcmtk.org/docs/img2dcm.html
+        #img2dcm [options] imgfile-in... dcmfile-out
+        self.dicom=jpg_file.replace('jpg','dcm')
+        cmd='/usr/local/bin/img2dcm ./'+self.jpg+' '+self.dicom
+        proc=sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE,shell=True)
+        out, err=proc.communicate()
+        out=out.decode("utf8")
+        err=err.decode("utf8")
+        if proc.returncode:
+            print("jpg2dcm is NOT successful")
+        else:
+            print("jpg2dcm is successful: dcm="+self.dicom)
+        return  proc.returncode
+  
+    def dcmodify(self,dcm_file, util_obj):
+        #use dcmodify from dcmtk toolkit to modify dcm file
+        #https://support.dcmtk.org/docs/dcmodify.html
+        #dcmodify -i "(0010,0010)=A Name" file.dcm 
+        meta_info=["(0010,0010)="+util_obj.cups_id+"_A","(0010, 0020)="+util_obj.cups_id,
+                   "(0008,1030)=CUPS",
+                   "(0008,103e)=Sample Series",
+                   "(0008,0020)=20211203",
+                   "(0008,0021)=20211203"]
+        for e in meta_info:
+            cmd="/usr/local/bin/dcmodify -i "+ "\""+e +"\""+ " ./" +dcm_file
+            print("cmd is: "+cmd)
+            out,err,ret=Util().run_cmd(cmd)	
+            if ret==0:
+                print("dcmodify is successful\n")
+            else:
+                print("dcmodify is NOT successful\n")
+            
+
+    def modify_dcm(self, dcm_file, util_obj):
+        #it works to modify dcm file, but cant not be viewed by Weasis tool
+        #pass util class obj for cups_id, etc parameters
+        if len(dcm_file)==0:
+            print("Error: dcm_file is NULL")
+            sys.exit(1)
+        else:
+            dicom_file_path='./'+dcm_file
+            if len(dicom_file_path)==0:
+                print("Error: dcm_file path is NULL")
+                sys.exit(1)
+
+            ds = pydicom.dcmread(dicom_file_path, force=True)
+            # Set other mandatory DICOM attributes
+            ds.PatientName = util_obj.cups_id+"_A"
+            ds.PatientID = util_obj.cups_id 
+            ds.StudyDescription = "CUPS"
+            ds.StudyDate="20211203" 
+            ds.SeriesDate="20211203"
+            ds.StudyInstanceUID="1.3.12.2.1107.5.2.0.79030.30000021120314124240800000013"
+            ds.SeriesDescription = "Sample Series"
+            ds.SOPClassUID="1.2.840.10008.5.1.4.1.1.4"
+            ds.Modality = 'MR'  # Example modality value
+            ds.file_meta.TransferSyntaxUID = '1.2.840.10008.1.2.1'
+            ds.save_as('out.dcm', write_like_original=False)
+            print("final file is: out.dcm")
+            
+
     def png2dcm(self, cups_id, dicom_file_path, png_file_path):
         # Specify the path to your DICOM file and PNG file
+        #this method does not work 100%, more work is needed for view it with Weasis tool
         try:
             # Read the existing DICOM file
             ds = pydicom.dcmread(dicom_file_path, force=True)
@@ -144,7 +223,6 @@ class Pipeline:
                 ds.file_meta.TransferSyntaxUID = pydicom.uid.ExplicitVRLittleEndian  # Use appropriate transfer syntax
                 ds[0x7FE0, 0x0010].VR = vr  # Explicitly set VR for Pixel Data
                 # Save the updated DICOM file
-                #ds.save_as('updated_dicom_file.dcm')
                 dcm_file=cups_id+'_rgb.dcm'
                 ds.save_as(dcm_file)
                 print("DICOM file saved as: "+dcm_file)
@@ -227,7 +305,7 @@ class Util:
                     self.root_path="/Users/zhou/uc/mri/xnat/XNAT_pipeline-main/testdir/"
                 else:
                     self.root_path="/System/Volumes/Data/Volumes/CUPS/PipelineOutputs/bids/derivatives/"
-
+                print("root_path is set to: "+self.root_path)
             if "-fpng" in x:
                 i=x.index("-fpng")
                 self.png_fname=x[i+1]
@@ -274,8 +352,8 @@ class Util:
                 print(self.svg_fname2+"\n")
                 print(self.csv_fname1+"\n")
                 print(self.csv_fname2+"\n")
-                print(self.fname_check1+"\n")
-                print(self.fname_check2+"\n")
+                print(self.file_check1+"\n")
+                print(self.file_check2+"\n")
 
     def print_help(self):
         msg="""
@@ -332,7 +410,8 @@ def main():
             (0x0020, 0x000D): "1.3.12.2.1107.5.2.0.79030.30000021120314124240800000013",  # Study Instance UID
             (0x0008, 0x0016): "1.2.840.10008.5.1.4.1.1.4",  # SOP Class UID
     }
-    if DEBUG:
+    if ut.debug:
+        print("dicom_metadata:\n")
         print(ut.dicom_metadata)
 
     png_image = Image.open(ut.png_fname)
@@ -340,41 +419,44 @@ def main():
     #new_width = int(0.8 * png_image.width)  # Adjust to your desired width
     #new_height = int(0.8 * png_image.height)  # Adjust to your desired height
     # Resize the image
-    #resized_image = png_image.resize((new_width, new_height))
     # Save the resized image
+    #resized_image = png_image.resize((new_width, new_height))
     #resized_image.save('resized_image.png')
 
     # Resize and convert the first SVG  to PNG
     pl.svg_to_png(ut.svg_fname1, 'temp1.png', width=png_image.width*2, height=png_image.height*1.5, remove_margins=True)
-    # Resize and convert the second SVG to PNG 
     pl.svg_to_png(ut.svg_fname2, 'temp2.png', width=png_image.width*2, height=png_image.height*1.5, remove_margins=True)
     if DEBUG:
         print("svg2png_image.width="+str(png_image.width*2))
         print("svg2png_image.height="+str(png_image.height*1.5))
 
     image1 = Image.open('temp1.png')
-    new_width=image1.width*2
-    new_height=image1.height
-    # Resize the image
-    r_image1 = image1.resize((new_width, new_height))
+    new_width = png_image.width
+    factor = float(png_image.width / image1.width)
+    new_height = int(image1.height*factor)
+
     # Save the resized image
+    r_image1 = image1.resize((new_width, new_height))
     r_image1.save('r_image1.png')
 
     image2 = Image.open('temp2.png')
-    new_width=image2.width*2
-    new_height=image2.height
-    # Resize the image
-    r_image2 = image2.resize((new_width, new_height))
+    new_width = png_image.width
+    factor = float(png_image.width / image2.width)
+    new_height = int(image2.height*factor)
+
     # Save the resized image
+    r_image2 = image2.resize((new_width, new_height))
     r_image2.save('r_image2.png')
 
     # Determine the size of the stacked image
     width = png_image.width
-    height = png_image.height * 5  # five times the height of the PNG image
+    ##height = png_image.height * 5  # five times the height of the PNG image
+    #height = png_image.height * 10  # ten times the height of the PNG image
+    height = png_image.height * 8  # eight times the height of the PNG image
 
-    if DEBUG:
-        print("size statcked image width="+str(width))
-        print("size starcked image height="+str(height))
+    if ut.debug:
+        print("stacked image width="+str(width)+"\n")
+        print("stacked image height="+str(height)+"\n")
     # Create a new image with the determined size
     #stacked_image = Image.new('RGB', (width, height))
     stacked_image = Image.new('RGBA', (width, height))
@@ -429,9 +511,13 @@ def main():
     #################################################
 
     # Save the stacked image
-    #stacked_image.save(ut.cups_id+'stacked_image.png')
+    pl.png=ut.cups_id+'stacked_image.png'
+    if len(pl.png)==0:
+        print("pl.png file name is NULL")
+        sys.exit(1)
+    stacked_image.save(pl.png)
     stacked_image.save(ut.sub_cups_id+'stacked_image.png')
-    #print("Stacked image saved as "+ut.cups_id+ 'stacked_image.png')
+    print("Stacked image saved as "+ut.cups_id+ 'stacked_image.png')
     print("Stacked image saved as "+ut.sub_cups_id+ 'stacked_image.png')
 
     # Close and Clean up temporary PNG files
@@ -448,7 +534,9 @@ def main():
     # Create a new DICOM dataset with sample metadata===============
     new_dicom = pydicom.Dataset()
     # Add the sample DICOM metadata as DataElements to the new dataset
-    print(ut.dicom_metadata)
+    if ut.debug:
+        print("dicom_metadata:\n")
+        print(ut.dicom_metadata)
     for tag, value in ut.dicom_metadata.items():
         #data_element = pydicom.dataelem.DataElement(tag, value)
         #new_dicom.add(data_element)
@@ -460,9 +548,19 @@ def main():
     sample_dicom_file="sample.dicom"
     new_dicom.save_as(sample_dicom_file)
 
+    if len(pl.png)==0:
+        sys.exit(0)
+    pl.png2jpg(pl.png)
+    if len(pl.jpg)==0:
+        sys.exit(0)
+    pl.jpg2dcm(pl.jpg)
+    print("dcm name is "+pl.dicom)
+    ##add all missing meta data tag or elements, etc
+    #pl.modify_dcm(pl.dicom,ut)
+    pl.dcmodify(pl.dicom,ut)
 
     #use Pipeline class function to do png2dcm
-    pl.png2dcm(ut.cups_id, sample_dicom_file, ut.sub_cups_id+'stacked_image.png')
+    #pl.png2dcm(ut.cups_id, sample_dicom_file, ut.sub_cups_id+'stacked_image.png')
     print("End of Program")
 
 if __name__=="__main__":
