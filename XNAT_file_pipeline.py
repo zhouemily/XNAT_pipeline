@@ -530,24 +530,7 @@ def main():
     os.remove("./r_image1.png")
     os.remove("./r_image2.png")
 
-
     # Create a new DICOM dataset with sample metadata===============
-    new_dicom = pydicom.Dataset()
-    # Add the sample DICOM metadata as DataElements to the new dataset
-    if ut.debug:
-        print("dicom_metadata:\n")
-        print(ut.dicom_metadata)
-    for tag, value in ut.dicom_metadata.items():
-        #data_element = pydicom.dataelem.DataElement(tag, value)
-        #new_dicom.add(data_element)
-        new_dicom.add_new(tag, 'PN', value)  # 'PN' corresponds to Person Name VR
-
-    # Set the byte order and VR encoding
-    new_dicom.is_little_endian = True  # Set to True for little-endian encoding
-    new_dicom.is_implicit_VR = False  # Set to False for explicit VR encoding
-    sample_dicom_file="sample.dicom"
-    new_dicom.save_as(sample_dicom_file)
-
     if len(pl.png)==0:
         sys.exit(0)
     pl.png2jpg(pl.png)
