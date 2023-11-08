@@ -13,9 +13,7 @@ how to run XNAT_file_pipeline.py
    #./XNAT_file_pipeline.py -id CUPS003 -D  (run in debug mode)
 
 2. run with batch of input files:
-   cups
-   for e in cups_ids:
-       XNAT_file_pipeline.py -id $e
+   ./run_xnat_pipeline.sh
 3. test dcm files:
    test_dcm.py [dcm_file]
 4. script to view find dicom file with Weasis viewer:
