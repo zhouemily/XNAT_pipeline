@@ -1,5 +1,8 @@
 #!/usr/bin/env python
-
+"""
+Author: Emily Rong Zhou 
+Release Version: 1.0
+"""
 import os
 import sys
 import csv
@@ -10,14 +13,13 @@ from datetime import datetime
 import pydicom
 from pydicom.datadict import tag_for_keyword
 import numpy as np
-
-DEBUG=0
-DEBUG2=0      #for local test only: set it to 1 only for local data
+import inspect
 
 class Pipeline:
-    def __init__(self):
-        self.name=''
-        self.data=[] 
+    def __init__(self, debug=None,verbose=None,local=None):
+        self.debug=debug
+        self.verbose=verbose 
+        self.local=local 
         self.png=''
         self.jpeg=''
         self.dicom=''
@@ -29,7 +31,7 @@ class Pipeline:
             options['output_width'] = width
             options['output_height'] = height
 
-        if DEBUG:
+        if self.debug:
             print("svg2png::png_file="+png_file+" width="+str(width)+" height="+str(height)+" remove_margins="+str(remove_margins))
         # Convert the SVG to PNG 
         cairosvg.svg2png(url=svg_file, write_to=png_file, **options)
@@ -40,7 +42,7 @@ class Pipeline:
             img = Image.open(png_file)
             img = img.crop(img.getbbox())
             img.save(png_file)
-        if DEBUG:
+        if self.debug:
             print(png_file+ " size::width="+ str(img.width)+" height="+str(img.height))
 
     def check_file_exist(self, file_path):
@@ -61,8 +63,8 @@ class Pipeline:
     def get_keyValue(self, key,file_path):
         # Initialize an empty dictionary to store the key-value pairs
         data_dict = {}
-        if DEBUG:
-            print('DEBUG: csv_file_path='+file_path)
+        if self.debug:
+            print('self.debug: csv_file_path='+file_path)
             if len(file_path)==0:
                 return "csv_file not found"
              
@@ -70,8 +72,8 @@ class Pipeline:
         try:
             with open(file_path, 'r') as csvfile:
                 lines = csvfile.readlines()
-                if DEBUG:
-                    print("DEBUG: print out csv file content\n")
+                if self.debug:
+                    print("self.debug: print out csv file content\n")
                     for line in lines:
                         print(line)
         
@@ -85,16 +87,16 @@ class Pipeline:
                     data_dict = dict(zip(k, v))
                 else:
                     print("The CSV file does not contain enough data.")
-                    if DEBUG2:
+                    if self.local:
                         return "CSV file does not contian enough data"
         
         except FileNotFoundError:
             print(f"The CSV file '{file_path}' does not exist.")
-            if DEBUG2:
+            if self.local:
                 return "CSV file Not Exist"
 
         # Print the extracted key-value pairs
-        if DEBUG:
+        if self.debug:
             for k, v in data_dict.items():
                 print(f"Key: {k}, Value: {v}")
 
@@ -105,7 +107,7 @@ class Pipeline:
         #convert an png_file to jpeg file which can be convertered to dicom with img2dcm from dcmtk tool set    
         #img2dcm tool does not support png to dcm directly, see reference documentation for more details
         #https://support.dcmtk.org/docs/img2dcm.html
-        if DEBUG2:
+        if self.local:
             print("input png_file is: "+png_file)
         im = Image.open('./'+png_file)
         rgb_im = im.convert('RGB')
@@ -133,23 +135,25 @@ class Pipeline:
         #use dcmodify from dcmtk toolkit to modify dcm file
         #https://support.dcmtk.org/docs/dcmodify.html
         #dcmodify -i "(0010,0010)=A Name" file.dcm 
+        #https://dicom.innolitics.com/ciods/cr-image/general-series/00080060 (tag)
         meta_info=["(0010,0010)="+util_obj.cups_id+"_A","(0010, 0020)="+util_obj.cups_id,
                    "(0008,1030)=CUPS",
                    "(0008,103e)=Sample Series",
                    "(0008,0020)=20211203",
-                   "(0008,0021)=20211203"]
+                   "(0008,0021)=20211203",
+                   "(0008,0060)=MR"]
         for e in meta_info:
             cmd="/usr/local/bin/dcmodify -i "+ "\""+e +"\""+ " ./" +dcm_file
-            print("cmd is: "+cmd)
             out,err,ret=Util().run_cmd(cmd)	
-            if ret==0:
-                print("dcmodify is successful\n")
-            else:
-                print("dcmodify is NOT successful\n")
-            
+            if self.verbose:
+                print("cmd is: "+cmd)
+                if ret==0:
+                    print("dcmodify is successful\n")
+                else:
+                    print("dcmodify is NOT successful\n")
 
     def modify_dcm(self, dcm_file, util_obj):
-        #it works to modify dcm file, but cant not be viewed by Weasis tool
+        #it works to modify dcm file, but cant NOT be viewed by Weasis tool
         #pass util class obj for cups_id, etc parameters
         if len(dcm_file)==0:
             print("Error: dcm_file is NULL")
@@ -175,7 +179,6 @@ class Pipeline:
             ds.save_as('out.dcm', write_like_original=False)
             print("final file is: out.dcm")
             
-
     def png2dcm(self, cups_id, dicom_file_path, png_file_path):
         # Specify the path to your DICOM file and PNG file
         #this method does not work 100%, more work is needed for view it with Weasis tool
@@ -231,26 +234,6 @@ class Pipeline:
         except Exception as e:
             print(f"Error: {str(e)}")
 
-    def simple_p2d(self,cups_id):
-        #this method works as a quick test (need to be completed for input)  but is replaced
-        # Load the PNG image you want to insert
-        new_png_image = Image.open(ut.sub_cups_id+'stacked_image.png')
-        # Convert the PNG image to a NumPy array
-        png_data = np.array(new_png_image)
-
-        # Set the Pixel Data tag in the new DICOM dataset with the PNG image data
-        new_dicom.PixelData = png_data.tobytes()
-        new_dicom.Rows, new_dicom.Columns = png_data.shape[:2]
-        new_dicom.SamplesPerPixel = 1  # Assuming grayscale image
-        new_dicom.BitsAllocated = 8
-        new_dicom.BitsStored = 8
-        new_dicom.HighBit = 7
-        new_dicom.PixelRepresentation = 0  # Unsigned integer
-        # Save the new DICOM file
-        new_dicom_file="ut_"+ut.cups_id+"_bw.dcm"
-        new_dicom.save_as(new_dicom_file)
-        print("New DICOM file saved as "+new_dicom_file)
-
 class Util:
     def __init__(self):
         self.data=[]
@@ -269,6 +252,7 @@ class Util:
         self.debug=0
         self.help=0
         self.verbose=0
+        self.local=0
         self.dicom_metadata = {} # Load the provided sample DICOM metadata
 
     def process_args(self):
@@ -279,7 +263,7 @@ class Util:
         Return:   None
         """
         x=sys.argv[1:]
-        zlist=["-h","-d","-id","-f","-D","-v"]
+        zlist=["-h","-d","-id","-f","-D","-v","-L"]
         if len(x)==0:
             self.print_help()
             exit(1)
@@ -297,11 +281,15 @@ class Util:
             if "-D" in x:
                 self.verbose=1
                 self.debug=1
+            if "-L" in x:
+                self.local=True
+            if "-v" in x:
+                self.verbose=True
             if "-d" in x:
                 i=x.index("-d")
                 self.root_path=x[i+1]
             else:
-                if DEBUG2:
+                if self.local:
                     self.root_path="/Users/zhou/uc/mri/xnat/XNAT_pipeline-main/testdir/"
                 else:
                     self.root_path="/System/Volumes/Data/Volumes/CUPS/PipelineOutputs/bids/derivatives/"
@@ -310,7 +298,7 @@ class Util:
                 i=x.index("-fpng")
                 self.png_fname=x[i+1]
             else:
-                if DEBUG2:
+                if self.local:
                     self.png_fname=self.root_path+"/"+self.sub_cups_id+'.png'
                 else:
                     self.png_fname=self.root_path+"fsqc/screenshots/"+self.sub_cups_id+"/"+self.sub_cups_id+'.png'
@@ -319,7 +307,7 @@ class Util:
                 i=x.index("-fsvg1")
                 self.svg_fname1=x[i+1]
             else:
-                if DEBUG2:
+                if self.local:
                     self.svg_fname1=self.root_path+"/"+self.sub_cups_id+'_ses-A_task-rest_dir-PA_run-1_desc-carpetplot_bold.svg'
                 else:
                     self.svg_fname1=self.root_path+"fmriprep/"+self.sub_cups_id+"/figures/"+self.sub_cups_id+'_ses-A_task-rest_dir-PA_run-1_desc-carpetplot_bold.svg'
@@ -327,13 +315,13 @@ class Util:
                 i=x.index("-fsvg2")
                 self.svg_fname2=x[i+1]
             else:
-                if DEBUG2:
+                if self.local:
                     self.svg_fname2=self.root_path+"/"+self.sub_cups_id+'_ses-A_run-1_carpetplot.svg'
                 else:
                     self.svg_fname2=self.root_path+"qsiprep/"+self.sub_cups_id+"/figures/"+self.sub_cups_id+'_ses-A_run-1_carpetplot.svg'
       
             #set default:
-            if DEBUG2:
+            if self.local:
                 #self.file_check1=self.root_path+self.sub_cups_id+"_ses-A_task-rest_dir-PA_run-1_desc-sdc_bold.svg"
                 self.file_check1=self.root_path+self.sub_cups_id+"_ses-A_task-rest_dir-PA_run-1_desc-carpetplot_bold.svg"
                 #self.file_check2=self.root_path+self.sub_cups_id+"_ses-A_run-1_desc-sdc_b0.svg"
@@ -378,24 +366,49 @@ class Util:
         out=out.decode("utf8")
         err=err.decode("utf8")
         return out, err, proc.returncode
-           
-###############################################################
+###############################################################global
 global tprint
 
 def tprint(*args):
     tempa = ' '.join(str(a) for a in args)
     print(str(datetime.now().strftime('%Y-%m-%d %H:%M%S')) + " " + tempa)        
 
+def debug_print(message):
+    # Get the current frame in the call stack
+    frame = inspect.currentframe()
+    if frame is not None:
+        try:
+            # Get the caller's function or method name
+            caller_name = inspect.getframeinfo(frame.f_back).function
+            
+            # Get the line number where this function is called
+            line_number = frame.f_back.f_lineno
+            
+            # Print the debug information
+            print(f"DEBUG [{caller_name}:{line_number}]: {message}")
+        finally:
+            # Always release the frame to prevent resource leaks
+            del frame
+#################################################################main
 def main():
     print("Program Started")
     # Load the PNG and resized SVGs
+    debug_print("This is a debug message from debug_print function")
    
-    pl=Pipeline()             #create instance from Pipeline class
-    ut=Util()                 #create instance from Util class
+    ut=Util()                 #create instance from Util class, process user arguments
     ut.process_args()
     if ut.help:
         ut.print_help()
         exit(1)
+
+    pl=Pipeline(ut.debug,ut.verbose,ut.local)             #create instance from Pipeline class with flags passed
+    if pl.debug:
+        print("run debugging...")
+    if pl.verbose:
+        print("run with verbose mode...")
+    if pl.local:
+        print("run with local files...")
+        
 
     # Load the provided sample DICOM metadata
     print("Input is: "+ut.cups_id)
@@ -426,7 +439,7 @@ def main():
     # Resize and convert the first SVG  to PNG
     pl.svg_to_png(ut.svg_fname1, 'temp1.png', width=png_image.width*2, height=png_image.height*1.5, remove_margins=True)
     pl.svg_to_png(ut.svg_fname2, 'temp2.png', width=png_image.width*2, height=png_image.height*1.5, remove_margins=True)
-    if DEBUG:
+    if pl.debug:
         print("svg2png_image.width="+str(png_image.width*2))
         print("svg2png_image.height="+str(png_image.height*1.5))
 
@@ -469,7 +482,8 @@ def main():
     draw = ImageDraw.Draw(stacked_image)
     # Use a system font and specify the size
     font_size = 36  # Adjust the font size as needed
-    font = ImageFont.truetype("/System/Library/Fonts/Geneva.ttf", font_size) #full path to fond is needed here 
+    font_path = "/System/Library/Fonts/Geneva.ttf"
+    font = ImageFont.truetype(font_path, font_size) #full path to fond is needed here 
 
     kv1 = pl.get_keyValue(ut.keys1[0],ut.csv_fname1)
     if len(kv1)==0:
@@ -516,8 +530,9 @@ def main():
         print("pl.png file name is NULL")
         sys.exit(1)
     stacked_image.save(pl.png)
+    print("Stacked image saved as "+pl.png)
+
     stacked_image.save(ut.sub_cups_id+'stacked_image.png')
-    print("Stacked image saved as "+ut.cups_id+ 'stacked_image.png')
     print("Stacked image saved as "+ut.sub_cups_id+ 'stacked_image.png')
 
     # Close and Clean up temporary PNG files
@@ -534,16 +549,14 @@ def main():
     if len(pl.png)==0:
         sys.exit(0)
     pl.png2jpg(pl.png)
+
     if len(pl.jpg)==0:
         sys.exit(0)
     pl.jpg2dcm(pl.jpg)
-    print("dcm name is "+pl.dicom)
-    ##add all missing meta data tag or elements, etc
-    #pl.modify_dcm(pl.dicom,ut)
-    pl.dcmodify(pl.dicom,ut)
+    print("Final DICOM file created: "+pl.dicom)
 
-    #use Pipeline class function to do png2dcm
-    #pl.png2dcm(ut.cups_id, sample_dicom_file, ut.sub_cups_id+'stacked_image.png')
+    ##add all missing meta data tag or elements, etc
+    pl.dcmodify(pl.dicom, ut)
     print("End of Program")
 
 if __name__=="__main__":
@@ -552,7 +565,6 @@ if __name__=="__main__":
     except KeyboardInterrupt:
         print("\nexception detected, exit now...")
         exit(1)
-
 
 """
 # sources of sample dcm in each session
@@ -568,7 +580,6 @@ fmap_task-rest_acq-7TfMRI_dir-AP
 (0008,0021) 	Series Date 	20211203
 (0020,000D) 	Study Instance UID 	1.3.12.2.1107.5.2.0.79030.30000021120314124240800000013
 (0008,0016) 	SOP Class UID 	1.2.840.10008.5.1.4.1.1.4
-
 
 # to change for PNG QC file:
 (0008,0008) 	Image Type 	DERIVED
@@ -591,37 +602,15 @@ fmap_task-rest_acq-7TfMRI_dir-AP
 # link to code
 https://github.com/pydicom/pydicom/issues/939#issuecomment-532475747
 
-from PIL import Image
-import numpy as np
-import pydicom
+   ## example code to create instance with arguments 
+class MyClass:
+    def __init__(self, arg1, arg2=None, arg3=None):
+        self.arg1 = arg1
+        self.arg2 = arg2
+        self.arg3 = arg3
 
-ds = pydicom.dcmread('0015.dcm') # pre-existing dicom file
-im_frame = Image.open('0015_result.png') # the PNG file to be replace
-
-if im_frame.mode == 'L':
-    # (8-bit pixels, black and white)
-    np_frame = np.array(im_frame.getdata(),dtype=np.uint8)
-    ds.Rows = im_frame.height
-    ds.Columns = im_frame.width
-    ds.PhotometricInterpretation = "MONOCHROME1"
-    ds.SamplesPerPixel = 1
-    ds.BitsStored = 8
-    ds.BitsAllocated = 8
-    ds.HighBit = 7
-    ds.PixelRepresentation = 0
-    ds.PixelData = np_frame.tobytes()
-    ds.save_as('0015_result_bw.dcm')
-elif im_frame.mode == 'RGBA':
-    # RGBA (4x8-bit pixels, true colour with transparency mask)
-    np_frame = np.array(im_frame.getdata(), dtype=np.uint8)[:,:3]
-    ds.Rows = im_frame.height
-    ds.Columns = im_frame.width
-    ds.PhotometricInterpretation = "RGB"
-    ds.SamplesPerPixel = 3
-    ds.BitsStored = 8
-    ds.BitsAllocated = 8
-    ds.HighBit = 7
-    ds.PixelRepresentation = 0
-    ds.PixelData = np_frame.tobytes()
-    ds.save_as('0015_result_rgb.dcm')
+# Creating instances with different argument combinations
+obj1 = MyClass("Value1")
+obj2 = MyClass("Value1", "Value2")
+obj3 = MyClass("Value1", "Value2", "Value3")
 """
