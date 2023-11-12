@@ -19,9 +19,19 @@ try:
     # Print the DICOM dataset
     print(ds)
 
-    # Access specific DICOM attributes (e.g., Patient's Name, Study Date)
+    # Access the "Patient Comments" attribute
+    patient_comments = ds.get((0x0010, 0x4000))
     patient_name = ds.PatientName
     study_date = ds.StudyDate
+
+    if patient_comments:
+        # Concatenate the individual elements into a single string
+        patient_comment_string = "".join(patient_comments)
+        print("Patient Comments:")
+        print(patient_comment_string)
+    else:
+        print("Patient Comments not found or empty in the DICOM file.")
+        # Access specific DICOM attributes (e.g., Patient's Name, Study Date)
 
     # Print specific attributes
     print(f"Patient's Name: {patient_name}")
@@ -29,4 +39,3 @@ try:
 
 except Exception as e:
     print(f"Error reading the DICOM file: {str(e)}")
-
