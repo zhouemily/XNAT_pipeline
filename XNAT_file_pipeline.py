@@ -151,6 +151,34 @@ class Pipeline:
                     print("dcmodify is successful\n")
                 else:
                     print("dcmodify is NOT successful\n")
+       
+    ##def dcmodify(self, dcm_file, patient_comment):
+    def dcmodify2(self,dcm_file, util_obj):
+        #add patient commant which is List Type 
+        patient_comment=[]
+        #(0010,4000)=patient_comment
+        subject_value=util_obj.cups_id.replace("CUPS","CUPS_")
+        session_value=subject_value+"_A"
+        # Assign the "Patient Comments" attribute
+        p_comment="Project:CUPS;Subject:"+subject_value+";Session:"+session_value
+        patient_comment.append(p_comment)
+
+        # Convert the list of comments into a single formatted comment string
+        formatted_comment = "\\\\n".join(patient_comment)  # Use double backslashes for line breaks
+
+        # Construct the dcmodify command
+        cmd = [
+            "/usr/local/bin/dcmodify",
+            "-i", f"(0010,4000)={formatted_comment}",
+            dcm_file
+        ]
+
+        try:
+            # Run the dcmodify command
+            sp.run(cmd, check=True)
+            print("Patient Comments modified successfully.")
+        except sp.CalledProcessError as e:
+            print(f"Error: {e}")
 
     def modify_dcm(self, dcm_file, util_obj):
         #it works to modify dcm file, but cant NOT be viewed by Weasis tool
@@ -165,18 +193,20 @@ class Pipeline:
                 sys.exit(1)
 
             ds = pydicom.dcmread(dicom_file_path, force=True)
+
             # Set other mandatory DICOM attributes
-            ds.PatientName = util_obj.cups_id+"_A"
-            ds.PatientID = util_obj.cups_id 
-            ds.StudyDescription = "CUPS"
-            ds.StudyDate="20211203" 
-            ds.SeriesDate="20211203"
-            ds.StudyInstanceUID="1.3.12.2.1107.5.2.0.79030.30000021120314124240800000013"
-            ds.SeriesDescription = "Sample Series"
-            ds.SOPClassUID="1.2.840.10008.5.1.4.1.1.4"
-            ds.Modality = 'MR'  # Example modality value
-            ds.file_meta.TransferSyntaxUID = '1.2.840.10008.1.2.1'
+            patient_comment=[]
+            subject_value=util_obj.cups_id.replace("CUPS","CUPS_")
+            session_value=subject_value+"_A"
+            # Assign the "Patient Comments" attribute
+            p_comment="Project:CUPS;Subject:"+subject_value+";Session:"+session_value
+            patient_comment.append(p_comment)
+            # Create a DataElement for "Patient Comments"
+            patient_comment_element = pydicom.DataElement(0x00104000, "LT", patient_comment)
+            # Assign the DataElement to the DICOM dataset
+            ds.add(patient_comment_element)
             ds.save_as('out.dcm', write_like_original=False)
+
             print("final file is: out.dcm")
             
     def png2dcm(self, cups_id, dicom_file_path, png_file_path):
@@ -557,6 +587,8 @@ def main():
 
     ##add all missing meta data tag or elements, etc
     pl.dcmodify(pl.dicom, ut)
+    pl.dcmodify2(pl.dicom, ut)
+    #pl.modify_dcm(pl.dicom,ut)
     print("End of Program")
 
 if __name__=="__main__":
