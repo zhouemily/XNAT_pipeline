@@ -1,0 +1,5 @@
+Create python script process command-line arguments with argparse module: -i input -o output -d directory, -v verbose -D debug 
+
+The argparse module in Python is a powerful tool for writing command-line interfaces. It makes it easy to parse command-line arguments. 
+Below is a Python script that demonstrates how to use argparse to process the command-line arguments you specified: 
+-i (input), -o (output), -d (directory), -v (verbose), and -D (debug).
