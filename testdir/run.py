@@ -11,6 +11,7 @@ import subprocess as sp
 import numpy as np
 import inspect
 import cairosvg
+import zipfile
 from PIL import Image, ImageDraw, ImageFont
 from datetime import datetime
 import pydicom
@@ -85,6 +86,47 @@ class Util:
                 del frame
 
 #################################################################################
+def ensure_dir(directory,verbose=None,debug=None):
+    if not os.path.exists(directory):
+        try:
+            os.makedirs(directory)
+            print(f"Directory '{directory}' was created.")
+        except OSError as error:
+            print(f"Error: Creating directory. {error}")
+    else:
+        print(f"Directory '{directory}' already exists.")
+    if verbose:
+        Util().tprint("directory exist: "+directory)
+
+#Example usage
+#directory_path = 'path/to/your/directory'  # Replace with your desired directory path
+#ensure_dir(directory_path)
+
+def rm_bak_files(directory_path,verbose=None,debug=None):
+    cmd="rm -f "+directory_path+"/*.dcm.bak"
+    if verbose:
+        Util().tprint(cmd)
+    if debug:
+        Util().tprint(cmd)
+    Util().run_cmd(cmd)
+
+def zip_directory(directory_path, output_zip_file, verbose=None,debug=None):
+    with zipfile.ZipFile(output_zip_file, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for root, dirs, files in os.walk(directory_path):
+            for file in files:
+                file_path = os.path.join(root, file)
+                zipf.write(file_path, os.path.relpath(file_path, directory_path))
+    if verbose:
+        Util().tprint("zip file done: "+output_zip_file)
+    if debug:
+        Util().tprint("zip file done: "+output_zip_file)
+        Util().tprint("directory_path: "+directory_path)
+
+# Example usage
+#directory_to_zip = 'path_to_directory'  # Replace with the path to your directory
+#output_zip = 'output.zip'  # Replace with your desired output zip file name
+#zip_directory(directory_to_zip, output_zip)
+
 def get_id_in_file(file_path, keyword, debug=None):
     filter='PipelineOutputs/bids'
     cup_id_list=[]
@@ -125,7 +167,7 @@ def main():
     parser = argparse.ArgumentParser(description="Script to process user arguments")
     
     # Define command-line arguments
-    parser.add_argument('-i', '--input', help='Input file', required=False)
+    parser.add_argument('-i', '--input', help='Input file', required=True)
     parser.add_argument('-o', '--outdir', help='Output dir path', required=False)
     parser.add_argument('-d', '--directory', help='Directory path', required=False)
     parser.add_argument("-v", "--verbose", action="count", default=0, help="Increase verbosity (up to 3 levels).")
@@ -135,6 +177,8 @@ def main():
     
     # Access the parsed arguments, # Add your processing logic here
     input_file = args.input
+    if input_file:
+        print("need input file: usage: ./run.py -i CUPS.log")
     out_dir = args.outdir
     input_directory = args.directory
     verbosity = args.verbose
@@ -143,6 +187,7 @@ def main():
     #output directory:
     if not args.outdir:
         out_dir='./dcm_dir'
+    ensure_dir(out_dir,verbosity,debug_mode)
         
     if debug_mode:
         print("Debug mode is enabled.")
@@ -153,13 +198,13 @@ def main():
         print(f"Debug: {'Yes' if args.debug else 'No'}")
     
     if verbosity >= 1:
-        print("This is a verbose message.")
+        print("This is a verbose message: -v verbose level one")
     
     if verbosity >= 2:
-        print("This is an even more verbose message.")
+        print("This is an even more verbose message: -vv verbose level two")
     
     if verbosity >= 3:
-        print("You really like to see a lot of messages!")
+        print("You really like to see a lot of messages: -vvv verbose level three")
 
     #get CUP list from CUPS list log file passed from command line:
     
@@ -167,9 +212,20 @@ def main():
     #id_list=["CUPS003","CUPS004"]
     keyword='sub-CUPS'
     id_list=get_id_in_file(input_file,keyword,debug_mode)
-
     myrun=myRun(id_list,debug_mode,verbosity,input_directory)
     myrun.run_it()
+    if debug_mode:
+        print("DICOM files done")
+    if verbosity >= 1:
+        Util().tprint("DICOM files done, output files in out_dir directory")
+
+    #after dcm files created, rm *.dcm.bak files in out_dir, and then zip them
+    rm_bak_files(out_dir,verbosity,debug_mode)
+    directory_to_zip = out_dir  # Replace with the path to your directory
+    output_zip = 'CUPS.DCM.zip'  # Replace with desired output zip file name
+    zip_directory(directory_to_zip, output_zip)
+
+    #send the zip to XNAT 
 
 if __name__ == "__main__":
     main()
