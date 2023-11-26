@@ -119,8 +119,8 @@ class Pipeline:
         #input with dicom dataSet object, and jpg image, return with dicom file
         #https://support.dcmtk.org/docs/img2dcm.html
         #img2dcm [options] imgfile-in... dcmfile-out
-        #put dicom file in ./out_dir directory
-        self.dicom='./out_dir/'+jpg_file.replace('jpg','dcm')
+        #put dicom file in out_directory: ./dcm_dir directory(default directory)
+        self.dicom='./dcm_dir/'+jpg_file.replace('jpg','dcm')
         cmd='/usr/local/bin/img2dcm ./'+self.jpg+' '+self.dicom
         proc=sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE,shell=True)
         out, err=proc.communicate()
