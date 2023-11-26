@@ -119,7 +119,8 @@ class Pipeline:
         #input with dicom dataSet object, and jpg image, return with dicom file
         #https://support.dcmtk.org/docs/img2dcm.html
         #img2dcm [options] imgfile-in... dcmfile-out
-        self.dicom=jpg_file.replace('jpg','dcm')
+        #put dicom file in ./out_dir directory
+        self.dicom='./out_dir/'+jpg_file.replace('jpg','dcm')
         cmd='/usr/local/bin/img2dcm ./'+self.jpg+' '+self.dicom
         proc=sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE,shell=True)
         out, err=proc.communicate()
@@ -143,7 +144,7 @@ class Pipeline:
                    "(0008,0021)=20211203",
                    "(0008,0060)=MR"]
         for e in meta_info:
-            cmd="/usr/local/bin/dcmodify -i "+ "\""+e +"\""+ " ./" +dcm_file
+            cmd="/usr/local/bin/dcmodify -i "+ "\""+e +"\""+ dcm_file
             out,err,ret=Util().run_cmd(cmd)	
             if self.verbose:
                 print("cmd is: "+cmd)
