@@ -88,29 +88,32 @@ def main():
     parser = argparse.ArgumentParser(description="Script to process user arguments")
     
     # Define command-line arguments
-    parser.add_argument("-f", "--file", type=str, help="Path to the input file.")
-    parser.add_argument("-d", "--directory", type=str, help="Path to the input directory.")
+    parser.add_argument('-i', '--input', help='Input file', required=False)
+    parser.add_argument('-o', '--outdir', help='Output dir path', required=False)
+    parser.add_argument('-d', '--directory', help='Directory path', required=False)
     parser.add_argument("-v", "--verbose", action="count", default=0, help="Increase verbosity (up to 3 levels).")
     parser.add_argument("-D", "--debug", action="store_true", help="Enable debug mode.")
     
     args = parser.parse_args()
     
-    # Access the parsed arguments
-    input_file = args.file
+    # Access the parsed arguments, # Add your processing logic here
+    input_file = args.input
+    out_dir = args.outdir
     input_directory = args.directory
     verbosity = args.verbose
     debug_mode = args.debug
-    
+
+    #output directory:
+    if not args.outdir:
+        out_dir='./dcm_dir'
+        
     if debug_mode:
         print("Debug mode is enabled.")
-    
-    if input_file:
-        print(f"Input file: {input_file}")
-    
-    if input_directory:
-        print(f"Input directory: {input_directory}")
-    
-    print(f"Verbosity level: {verbosity}")
+        print(f"Input file: {args.input}")
+        print(f"Output dir path: {out_dir}")
+        print(f"Directory: {args.directory}")
+        print(f"Verbose: {'Yes' if args.verbose else 'No'}")
+        print(f"Debug: {'Yes' if args.debug else 'No'}")
     
     if verbosity >= 1:
         print("This is a verbose message.")
