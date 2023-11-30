@@ -146,7 +146,8 @@ def get_id_in_file(file_path, keyword, debug=None):
                     if keyword in elem and elem not in cup_id_list:
                             cup_id_list.append(elem)
                     if debug:
-                        print(f"Line {line_number}: {line.strip()}")
+                        pass
+                        #print(f"Line {line_number}: {line.strip()}")
     except FileNotFoundError:
         print(f"The file {file_path} was not found.")
     except Exception as e:
@@ -154,13 +155,14 @@ def get_id_in_file(file_path, keyword, debug=None):
 
     cup_id_list.sort()
     if debug:
-        #printf 10 items per line from the list
-        for i, a in enumerate(cup_id_list):
-            print (a,) 
-            if i % 10 == 9: 
-                print ("\n")
         #print(cup_id_list) ##this will print whole list in one line
         print("total number of cups_ids: "+ str(len(cup_id_list)))
+        print(cup_id_list) ##this will print whole list in one line
+        id_list=[]
+        for e in cup_id_list:
+            e=e.replace("sub-","")
+            id_list.append(e)
+        print(id_list)
     return cup_id_list
 
 def main():
