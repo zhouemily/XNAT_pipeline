@@ -1,4 +1,4 @@
-1.see 11302023.log for some details (use dos2unix to clean up nonprintable chars)
+1.see testlog and 11302023.log for some details (use dos2unix to clean up nonprintable chars)
 2.script updated: run.py XNAT_file_pipleline.py to create new dicom file, then zip them and upload the zip file 
 (need a subject value to submit the zip file
 3.created two files for environmental variables: ~/bashrc : set python module path, there is a version conflict
