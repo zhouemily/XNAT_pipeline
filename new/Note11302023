@@ -6,3 +6,15 @@ which is solved by using PYTHONPATH, which will search in two direcotories (the 
 4.may need to remove certain key:value pairs if not existing
 5../run.py -i CUPS.log -p path will created needed dicom files in ./dcm_dir and zip them as ./CUPS.DICOM.zip
 6. ./xnat_sesnd.py will send the zip file to the XNAT1 server
+
+Please note:
+1. environmental varibles need to be set correctly using ~/.bashrc
+export PYTHONPATH=......
+otherwise, python version conflicts show many run time errors
+2. no login passwd should be included in the script for security
+~/.netrc is used for extract login passwd (it should be encripted and no plain text passwd).
+3. cups_id_list should be created only once and remove certain invalid ids
+4. certain key:value pairs are not available, which will be removed by updating the script
+5. subject value needed for final submission with xnat_send.py
+
+
