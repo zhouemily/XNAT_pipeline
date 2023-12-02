@@ -1,4 +1,181 @@
-    from . import py3k
+#brew install pyenv
+On Linux or other systems, follow the instructions from the pyenv GitHub repository.
+Install the desired Python version: Once pyenv is installed, you can list the available Python versions:
+
+
+#pyenv install --list
+Choose the version you want, then install it with:
+
+#pyenv install x.x.x  # Replace x.x.x with the desired Python version, e.g., 3.9.5
+Set the global or local Python version: After installing the desired version, you can set it as the global version or for a specific project:
+
+To set the global version:
+
+#pyenv global x.x.x  # Replace x.x.x with the desired Python version
+To set the local version for a specific project:
+
+#pyenv local x.x.x  # Replace x.x.x with the desired Python version
+Using Official Python Installers:
+Alternatively, you can download and install the older version directly from the Python website. However, managing multiple versions might be more cumbersome without a tool like pyenv.
+
+Keep in mind that maintaining multiple Python versions may lead to conflicts or complexities, so using a virtual environment for projects with different Python requirements might be beneficial.
+
+
+2. how to use pyenv and install needed modules
+Once you've installed pyenv and the desired Python version, you can manage modules using the specific Python version managed by pyenv. Here's how:
+
+Using pyenv with Modules:
+Activate the pyenv Python version:
+
+
+#pyenv global x.x.x  # Set the desired Python version globally
+Alternatively, you can set the version locally for a specific project:
+
+
+#pyenv local x.x.x  # Set the desired Python version locally
+Install modules using pip:
+With the desired Python version active, use pip to install the required modules:
+
+
+#pip install module_name
+Replace module_name with the name of the module you want to install. For instance:
+
+
+#pip install requests  # Installs the 'requests' module
+Create and use virtual environments:
+It's a good practice to create a virtual environment for each project to manage dependencies separately. After activating the desired Python version with pyenv, create a virtual environment:
+
+#python -m venv myenv  # Replace 'myenv' with your preferred environment name
+Activate the virtual environment:
+
+On Unix or MacOS:
+
+#source myenv/bin/activate
+On Windows:
+#myenv\Scripts\activate
+Now, any modules you install using pip will be specific to this virtual environment and won't affect other projects or the system-wide Python installation.
+
+Remember, pyenv helps manage different Python versions, but virtual environments (venv, virtualenv, etc.) help isolate dependencies for individual projects. Combining these tools allows you to have multiple Python versions and manage modules efficiently across various projects.
+
+
+3 what is pyenv global or local , how does it work, show examples
+pyenv allows you to set a global Python version that applies system-wide or set a local version specific to a directory or project. Here are examples of pyenv global and pyenv local:
+
+pyenv global:
+Setting a Global Python Version:
+
+#pyenv global 3.9.5
+This command sets Python 3.9.5 as the global version. Any shell session on your system will use this version unless overridden by a pyenv local setting or manually selecting a version.
+
+Checking the Global Python Version:
+To verify the global Python version:
+
+#pyenv global
+This will display the currently set global Python version.
+
+#pyenv local:
+Setting a Local Python Version:
+Change to the directory where you want to set a specific Python version, then execute:
+
+
+#pyenv local 3.8.11
+This command sets Python 3.8.11 as the version specifically for the current directory and its subdirectories. It creates a .python-version file in the directory, storing the Python version information.
+
+Checking the Local Python Version:
+To check the Python version set locally in a directory:
+
+#pyenv local
+This command displays the Python version set specifically for that directory.
+
+Example Scenario:
+Let's say you have Python 3.9.5 installed globally but need Python 3.8.11 for a specific project.
+
+Set Global Version:
+
+#pyenv global 3.9.5
+Now, Python 3.9.5 is used system-wide.
+
+Navigate to Your Project Directory:
+
+
+#cd /path/to/your/project
+Set Local Version for the Project:
+
+#pyenv local 3.8.11
+Python 3.8.11 is now the version used only within this project directory and its subdirectories.
+
+Verify Versions:
+
+To verify the global version: pyenv global
+To verify the local version in the project directory: pyenv local
+Using pyenv global and pyenv local, you can manage different Python versions easily across your system and specific projects without conflicting dependencies.
+
+
+=====================================================
+here's a concise summary document on using pyenv and managing Python versions:
+
+Managing Python Versions with pyenv
+1. Installation:
+Homebrew (macOS):
+
+#brew install pyenv
+Other systems: Follow instructions from the pyenv GitHub repository.
+2. Setting Global Python Version:
+Command:
+
+#pyenv global x.x.x  # Set a specific Python version globally
+Usage:
+Applies system-wide for all shell sessions.
+Example: pyenv global 3.9.5
+3. Setting Local Python Version:
+Command:
+
+pyenv local x.x.x  # Set a specific Python version locally for a directory
+Usage:
+Sets a version specific to a directory and its subdirectories.
+Creates a .python-version file in the directory.
+Example: pyenv local 3.8.11
+4. Managing Python Modules:
+Install modules with pip:
+
+#pip install package_name  # Install a Python package
+Use virtual environments:
+Create: python -m venv myenv
+Activate: source myenv/bin/activate (Unix/MacOS) or myenv\Scripts\activate (Windows)
+5. Verifying Python Versions:
+Check current global version:
+
+#pyenv global  # Check current global Python version
+Check local version in a directory:
+
+#pyenv local  # Check Python version set locally in a directory
+Example Workflow:
+Global Version Setup:
+
+Set a default Python version for the system:
+
+#pyenv global 3.9.5
+Local Version for a Project:
+
+Navigate to project directory:
+
+#cd /path/to/your/project
+Set Python version specific to this project:
+
+#pyenv local 3.8.11
+Verify Versions:
+
+Check global version:
+
+#pyenv global
+Check local version in the project directory:
+#pyenv local
+This summary provides a quick guide on using pyenv to manage Python versions globally and locally, as well as basic commands for handling modules and verifying version settings. Adjust the version numbers and package names according to your requirements.
+
+==========================================================================
+
+Error logs shown 
+from . import py3k
   File "/usr/local/lib/python3.11/site-packages/numpy/compat/py3k.py", line 21, in <module>
     from pathlib import Path
   File "/usr/local/lib/python3.10/site-packages/pathlib.py", line 10, in <module>
