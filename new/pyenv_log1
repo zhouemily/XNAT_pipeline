@@ -1,0 +1,1028 @@
+ash-3.2$ python 
+Python 3.9.13 (main, Aug 25 2022, 18:29:29) 
+[Clang 12.0.0 ] :: Anaconda, Inc. on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import numpy
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/numpy/core/__init__.py", line 24, in <module>
+    from . import multiarray
+  File "/usr/local/lib/python3.11/site-packages/numpy/core/multiarray.py", line 10, in <module>
+    from . import overrides
+  File "/usr/local/lib/python3.11/site-packages/numpy/core/overrides.py", line 8, in <module>
+    from numpy.core._multiarray_umath import (
+ModuleNotFoundError: No module named 'numpy.core._multiarray_umath'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/numpy/__init__.py", line 130, in <module>
+    from numpy.__config__ import show as show_config
+  File "/usr/local/lib/python3.11/site-packages/numpy/__config__.py", line 4, in <module>
+    from numpy.core._multiarray_umath import (
+  File "/usr/local/lib/python3.11/site-packages/numpy/core/__init__.py", line 50, in <module>
+    raise ImportError(msg)
+ImportError: 
+
+IMPORTANT: PLEASE READ THIS FOR ADVICE ON HOW TO SOLVE THIS ISSUE!
+
+Importing the numpy C-extensions failed. This error can happen for
+many reasons, often due to issues with your setup or how NumPy was
+installed.
+
+We have compiled some common reasons and troubleshooting tips at:
+
+    https://numpy.org/devdocs/user/troubleshooting-importerror.html
+
+Please note and check the following:
+
+  * The Python version is: Python3.9 from "/usr/local/anaconda3/bin/python"
+  * The NumPy version is: "1.26.1"
+
+and make sure that they are the versions you expect.
+Please carefully study the documentation linked above for further help.
+
+Original error was: No module named 'numpy.core._multiarray_umath'
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/local/lib/python3.11/site-packages/numpy/__init__.py", line 135, in <module>
+    raise ImportError(msg) from e
+ImportError: Error importing numpy: you should not try to import numpy from
+        its source directory; please exit the numpy source tree, and relaunch
+        your python interpreter from there.
+>>> 
+bash-3.2$ cd /usr/local/bin
+bash-3.2$ ls
+2to3                            dcod2lum                        idle3.11                        python3-config
+2to3-3.10                       dconvlum                        ifnames                         python3.10
+2to3-3.11                       django-admin                    img2dcm                         python3.10-config
+__pycache__                     djpeg                           import_pb_to_tensorboard        python3.11
+autoconf                        dos2unix                        jpegtran                        python3.11-config
+autoheader                      drtdump                         libpng-config                   pzstd
+autom4te                        drttest                         libpng16-config                 rdjpgcom
+autopoint                       dsr2html                        lz4                             recode-sr-latin
+autoreconf                      dsr2xml                         lz4c                            runghc
+autoscan                        dsrdump                         lz4cat                          runghc-9.4.4
+autoupdate                      dump2dcm                        lzcat                           runhaskell
+brew                            echoscu                         lzcmp                           runhaskell-9.4.4
+c_rehash                        envsubst                        lzdiff                          saved_model_cli
+cabal                           estimator_ckpt_converter        lzegrep                         sessionmirror.py
+cairo-trace                     fc-cache                        lzfgrep                         sqlformat
+cairosvg                        fc-cat                          lzgrep                          stack
+cda2dcm                         fc-conflist                     lzless                          stl2dcm
+cjpeg                           fc-list                         lzma                            storescp
+convert-caffe2-to-onnx          fc-match                        lzmadec                         storescu
+convert-onnx-to-caffe2          fc-pattern                      lzmainfo                        tensorboard
+dcm2json                        fc-query                        lzmore                          termscu
+dcm2pdf                         fc-scan                         mac2unix                        tf_upgrade_v2
+dcm2pnm                         fc-validate                     markdown_py                     tflite_convert
+dcm2xml                         findscu                         mkreport                        tiffcp
+dcmcjpeg                        freetype-config                 movescu                         tiffdump
+dcmcjpls                        futurize                        msgattrib                       tiffinfo
+dcmconv                         gdbm_dump                       msgcat                          tiffset
+dcmcrle                         gdbm_load                       msgcmp                          tiffsplit
+dcmdata_tests                   gdbmtool                        msgcomm                         tjbench
+dcmdjpeg                        gdbus                           msgconv                         toco
+dcmdjpls                        gdbus-codegen                   msgen                           toco_from_protos
+dcmdrle                         getscu                          msgexec                         torchrun
+dcmdspfn                        gettext                         msgfilter                       tqdm
+dcmdump                         gettext.sh                      msgfmt                          transformers-cli
+dcmect_tests                    gettextize                      msggrep                         unix2dos
+dcmfg_tests                     ghc                             msginit                         unix2mac
+dcmftest                        ghc-9.4.4                       msgmerge                        unlz4
+dcmgpdir                        ghc-pkg                         msgserv                         unlzma
+dcmicmp                         ghc-pkg-9.4.4                   msgunfmt                        unxz
+dcmiod_tests                    ghci                            msguniq                         unzstd
+dcmj2pnm                        ghci-9.4.4                      ngettext                        wheel3
+dcml2pnm                        gio                             nltk                            wheel3.10
+dcmmkcrv                        gio-querymodules                normalizer                      wheel3.11
+dcmmkdir                        glib-compile-resources          ofstd_tests                     wlmscpfs
+dcmmklut                        glib-compile-schemas            openssl                         wltest
+dcmnet_tests                    glib-genmarshal                 pasteurize                      wrjpgcom
+dcmodify                        glib-gettextize                 pcre2-config                    xgettext
+dcmp2pgm                        glib-mkenums                    pcre2grep                       xml2dcm
+dcmprscp                        gobject-query                   pcre2test                       xml2dsr
+dcmprscu                        google-oauthlib-tool            pdf2dcm                         xnat
+dcmpschk                        gresource                       pip3                            xnat_cp_project
+dcmpsmk                         gsettings                       pip3.11                         xnat_data_integrity-check
+dcmpsprt                        gtester                         pkg-config                      xz
+dcmpsrcv                        gtester-report                  png-fix-itxt                    xzcat
+dcmpssnd                        haddock                         pngfix                          xzcmp
+dcmqridx                        haddock-ghc-9.4.4               pydicom                         xzdec
+dcmqrscp                        heroku                          pydoc3                          xzdiff
+dcmqrti                         hp2ps                           pydoc3.10                       xzegrep
+dcmquant                        hp2ps-ghc-9.4.4                 pydoc3.11                       xzfgrep
+dcmrecv                         hpc                             pyrsa-decrypt                   xzgrep
+dcmrt_tests                     hpc-ghc-9.4.4                   pyrsa-encrypt                   xzless
+dcmscale                        hsc2hs                          pyrsa-keygen                    xzmore
+dcmseg_tests                    hsc2hs-ghc-9.4.4                pyrsa-priv2pub                  zstd
+dcmsend                         html2text                       pyrsa-sign                      zstdcat
+dcmsign                         huggingface-cli                 pyrsa-verify                    zstdgrep
+dcmsr_tests                     idle3                           python                          zstdless
+dcmtls_tests                    idle3.10                        python3                         zstdmt
+bash-3.2$ ./pip3 -V
+Traceback (most recent call last):
+  File "/usr/local/bin/./pip3", line 5, in <module>
+    from pip._internal.cli.main import main
+  File "/usr/local/lib/python3.11/site-packages/pip/_internal/cli/main.py", line 10, in <module>
+    from pip._internal.cli.autocompletion import autocomplete
+  File "/usr/local/lib/python3.11/site-packages/pip/_internal/cli/autocompletion.py", line 10, in <module>
+    from pip._internal.cli.main_parser import create_main_parser
+  File "/usr/local/lib/python3.11/site-packages/pip/_internal/cli/main_parser.py", line 9, in <module>
+    from pip._internal.build_env import get_runnable_pip
+  File "/usr/local/lib/python3.11/site-packages/pip/_internal/build_env.py", line 6, in <module>
+    import pathlib
+  File "/usr/local/lib/python3.10/site-packages/pathlib.py", line 10, in <module>
+    from collections import Sequence
+ImportError: cannot import name 'Sequence' from 'collections' (/usr/local/Cellar/python@3.11/3.11.6_1/Frameworks/Python.framework/Versions/3.11/lib/python3.11/collections/__init__.py)
+bash-3.2$ ./python -V
+Python 3.11.6
+bash-3.2$ brew uninstall python
+Uninstalling /usr/local/Cellar/python@3.11/3.11.6_1... (3,285 files, 61.1MB)
+bash-3.2$ which pip3
+/usr/local/anaconda3/bin/pip3
+bash-3.2$ cd usr/local/anaconda3
+bash: cd: usr/local/anaconda3: No such file or directory
+bash-3.2$ cd /usr/local/anaconda3
+bash-3.2$ ls
+Anaconda-Navigator.app  doc                     libexec                 pkgs                    resources               translations
+LICENSE.txt             envs                    licensing               plugins                 sbin
+bin                     etc                     man                     pyodbc.pyi              share
+conda-meta              include                 mkspecs                 python.app              shell
+condabin                lib                     phrasebooks             qml                     ssl
+bash-3.2$ cd lin
+bash: cd: lin: No such file or directory
+bash-3.2$ ls
+Anaconda-Navigator.app  doc                     libexec                 pkgs                    resources               translations
+LICENSE.txt             envs                    licensing               plugins                 sbin
+bin                     etc                     man                     pyodbc.pyi              share
+conda-meta              include                 mkspecs                 python.app              shell
+condabin                lib                     phrasebooks             qml                     ssl
+bash-3.2$ cd lib
+bash-3.2$ ls
+Tk.icns                                 libQt5Script.dylib                      libicui18n.dylib
+Tk.tiff                                 libQt5Script.prl                        libicuio.58.2.dylib
+ascii_and_mic.so                        libQt5ScriptTools.5.15.2.dylib          libicuio.58.dylib
+clang                                   libQt5ScriptTools.5.15.dylib            libicuio.a
+cmake                                   libQt5ScriptTools.5.dylib               libicuio.dylib
+cyrillic_and_mic.so                     libQt5ScriptTools.dylib                 libicutest.58.2.dylib
+dict_snowball.so                        libQt5ScriptTools.prl                   libicutest.58.dylib
+engines-1.1                             libQt5Scxml.5.15.2.dylib                libicutest.a
+euc2004_sjis2004.so                     libQt5Scxml.5.15.dylib                  libicutest.dylib
+euc_cn_and_mic.so                       libQt5Scxml.5.dylib                     libicutu.58.2.dylib
+euc_jp_and_sjis.so                      libQt5Scxml.dylib                       libicutu.58.dylib
+euc_kr_and_mic.so                       libQt5Scxml.prl                         libicutu.a
+euc_tw_and_big5.so                      libQt5Sensors.5.15.2.dylib              libicutu.dylib
+gettext                                 libQt5Sensors.5.15.dylib                libicuuc.58.2.dylib
+girepository-1.0                        libQt5Sensors.5.dylib                   libicuuc.58.dylib
+glib-2.0                                libQt5Sensors.dylib                     libicuuc.a
+gstreamer-1.0                           libQt5Sensors.prl                       libicuuc.dylib
+icu                                     libQt5SerialBus.5.15.2.dylib            libidn2.0.dylib
+itcl4.2.2                               libQt5SerialBus.5.15.dylib              libidn2.dylib
+krb5                                    libQt5SerialBus.5.dylib                 libintl.8.dylib
+latin2_and_win1250.so                   libQt5SerialBus.dylib                   libintl.a
+latin_and_mic.so                        libQt5SerialBus.prl                     libintl.dylib
+libLIEF.dylib                           libQt5SerialPort.5.15.2.dylib           libiomp5.dylib
+libLLVM-11.dylib                        libQt5SerialPort.5.15.dylib             libiomp5_db.dylib
+libLLVM-12.dylib                        libQt5SerialPort.5.dylib                libiompstubs5.dylib
+libLLVM-14.dylib                        libQt5SerialPort.dylib                  libjpeg.9.dylib
+libLLVM-C.12.dylib                      libQt5SerialPort.prl                    libjpeg.a
+libLLVM-C.14.dylib                      libQt5ServiceSupport.a                  libjpeg.dylib
+libLTO.11.dylib                         libQt5ServiceSupport.prl                libjpegxr.0.dylib
+libLTO.12.dylib                         libQt5Sql.5.15.2.dylib                  libjpegxr.1.1.dylib
+libLTO.14.dylib                         libQt5Sql.5.15.dylib                    libjpegxr.dylib
+libLerc.dylib                           libQt5Sql.5.dylib                       libjq.1.dylib
+libQt53DAnimation.5.15.2.dylib          libQt5Sql.dylib                         libjq.a
+libQt53DAnimation.5.15.dylib            libQt5Sql.prl                           libjq.dylib
+libQt53DAnimation.5.dylib               libQt5Svg.5.15.2.dylib                  libjxrglue.0.dylib
+libQt53DAnimation.dylib                 libQt5Svg.5.15.dylib                    libjxrglue.1.1.dylib
+libQt53DAnimation.prl                   libQt5Svg.5.dylib                       libjxrglue.dylib
+libQt53DCore.5.15.2.dylib               libQt5Svg.dylib                         libk5crypto.3.1.dylib
+libQt53DCore.5.15.dylib                 libQt5Svg.prl                           libk5crypto.3.dylib
+libQt53DCore.5.dylib                    libQt5Test.5.15.2.dylib                 libk5crypto.dylib
+libQt53DCore.dylib                      libQt5Test.5.15.dylib                   libkadm5clnt.dylib
+libQt53DCore.prl                        libQt5Test.5.dylib                      libkadm5clnt_mit.12.0.dylib
+libQt53DExtras.5.15.2.dylib             libQt5Test.dylib                        libkadm5clnt_mit.12.dylib
+libQt53DExtras.5.15.dylib               libQt5Test.prl                          libkadm5clnt_mit.dylib
+libQt53DExtras.5.dylib                  libQt5TextToSpeech.5.15.2.dylib         libkadm5srv.dylib
+libQt53DExtras.dylib                    libQt5TextToSpeech.5.15.dylib           libkadm5srv_mit.12.0.dylib
+libQt53DExtras.prl                      libQt5TextToSpeech.5.dylib              libkadm5srv_mit.12.dylib
+libQt53DInput.5.15.2.dylib              libQt5TextToSpeech.dylib                libkadm5srv_mit.dylib
+libQt53DInput.5.15.dylib                libQt5TextToSpeech.prl                  libkdb5.10.0.dylib
+libQt53DInput.5.dylib                   libQt5ThemeSupport.a                    libkdb5.10.dylib
+libQt53DInput.dylib                     libQt5ThemeSupport.prl                  libkdb5.dylib
+libQt53DInput.prl                       libQt5UiPlugin.prl                      libkrad.0.0.dylib
+libQt53DLogic.5.15.2.dylib              libQt5UiTools.a                         libkrad.0.dylib
+libQt53DLogic.5.15.dylib                libQt5UiTools.prl                       libkrad.dylib
+libQt53DLogic.5.dylib                   libQt5VirtualKeyboard.5.15.2.dylib      libkrb5.3.3.dylib
+libQt53DLogic.dylib                     libQt5VirtualKeyboard.5.15.dylib        libkrb5.3.dylib
+libQt53DLogic.prl                       libQt5VirtualKeyboard.5.dylib           libkrb5.dylib
+libQt53DQuick.5.15.2.dylib              libQt5VirtualKeyboard.dylib             libkrb5support.1.1.dylib
+libQt53DQuick.5.15.dylib                libQt5VirtualKeyboard.prl               libkrb5support.1.dylib
+libQt53DQuick.5.dylib                   libQt5WebChannel.5.15.2.dylib           libkrb5support.dylib
+libQt53DQuick.dylib                     libQt5WebChannel.5.15.dylib             liblcms2.2.dylib
+libQt53DQuick.prl                       libQt5WebChannel.5.dylib                liblcms2.a
+libQt53DQuickAnimation.5.15.2.dylib     libQt5WebChannel.dylib                  liblcms2.dylib
+libQt53DQuickAnimation.5.15.dylib       libQt5WebChannel.prl                    liblz4.1.9.3.dylib
+libQt53DQuickAnimation.5.dylib          libQt5WebEngine.5.15.9.dylib            liblz4.1.dylib
+libQt53DQuickAnimation.dylib            libQt5WebEngine.5.15.dylib              liblz4.dylib
+libQt53DQuickAnimation.prl              libQt5WebEngine.5.dylib                 liblzma.5.dylib
+libQt53DQuickExtras.5.15.2.dylib        libQt5WebEngine.dylib                   liblzma.a
+libQt53DQuickExtras.5.15.dylib          libQt5WebEngine.prl                     liblzma.dylib
+libQt53DQuickExtras.5.dylib             libQt5WebEngineCore.5.15.9.dylib        liblzo2.2.0.0.dylib
+libQt53DQuickExtras.dylib               libQt5WebEngineCore.5.15.dylib          liblzo2.2.dylib
+libQt53DQuickExtras.prl                 libQt5WebEngineCore.5.dylib             liblzo2.a
+libQt53DQuickInput.5.15.2.dylib         libQt5WebEngineCore.dylib               liblzo2.dylib
+libQt53DQuickInput.5.15.dylib           libQt5WebEngineCore.prl                 libmenu.6.dylib
+libQt53DQuickInput.5.dylib              libQt5WebEngineWidgets.5.15.9.dylib     libmenu.a
+libQt53DQuickInput.dylib                libQt5WebEngineWidgets.5.15.dylib       libmenu.dylib
+libQt53DQuickInput.prl                  libQt5WebEngineWidgets.5.dylib          libmenuw.6.dylib
+libQt53DQuickRender.5.15.2.dylib        libQt5WebEngineWidgets.dylib            libmenuw.a
+libQt53DQuickRender.5.15.dylib          libQt5WebEngineWidgets.prl              libmenuw.dylib
+libQt53DQuickRender.5.dylib             libQt5WebKit.5.212.0.dylib              libmkl_avx.1.dylib
+libQt53DQuickRender.dylib               libQt5WebKit.5.dylib                    libmkl_avx2.1.dylib
+libQt53DQuickRender.prl                 libQt5WebKit.dylib                      libmkl_avx512.1.dylib
+libQt53DQuickScene2D.5.15.2.dylib       libQt5WebKitWidgets.5.212.0.dylib       libmkl_blacs_mpich_ilp64.1.dylib
+libQt53DQuickScene2D.5.15.dylib         libQt5WebKitWidgets.5.dylib             libmkl_blacs_mpich_ilp64.dylib
+libQt53DQuickScene2D.5.dylib            libQt5WebKitWidgets.dylib               libmkl_blacs_mpich_lp64.1.dylib
+libQt53DQuickScene2D.dylib              libQt5WebSockets.5.15.2.dylib           libmkl_blacs_mpich_lp64.dylib
+libQt53DQuickScene2D.prl                libQt5WebSockets.5.15.dylib             libmkl_cdft_core.1.dylib
+libQt53DRender.5.15.2.dylib             libQt5WebSockets.5.dylib                libmkl_cdft_core.dylib
+libQt53DRender.5.15.dylib               libQt5WebSockets.dylib                  libmkl_core.1.dylib
+libQt53DRender.5.dylib                  libQt5WebSockets.prl                    libmkl_core.dylib
+libQt53DRender.dylib                    libQt5WebView.5.15.2.dylib              libmkl_intel_ilp64.1.dylib
+libQt53DRender.prl                      libQt5WebView.5.15.dylib                libmkl_intel_ilp64.dylib
+libQt5AccessibilitySupport.a            libQt5WebView.5.dylib                   libmkl_intel_lp64.1.dylib
+libQt5AccessibilitySupport.prl          libQt5WebView.dylib                     libmkl_intel_lp64.dylib
+libQt5Bluetooth.5.15.2.dylib            libQt5WebView.prl                       libmkl_intel_thread.1.dylib
+libQt5Bluetooth.5.15.dylib              libQt5Widgets.5.15.2.dylib              libmkl_intel_thread.dylib
+libQt5Bluetooth.5.dylib                 libQt5Widgets.5.15.dylib                libmkl_mc3.1.dylib
+libQt5Bluetooth.dylib                   libQt5Widgets.5.dylib                   libmkl_rt.1.dylib
+libQt5Bluetooth.prl                     libQt5Widgets.dylib                     libmkl_rt.dylib
+libQt5Bodymovin.5.15.2.dylib            libQt5Widgets.prl                       libmkl_scalapack_ilp64.1.dylib
+libQt5Bodymovin.5.15.dylib              libQt5Xml.5.15.2.dylib                  libmkl_scalapack_ilp64.dylib
+libQt5Bodymovin.5.dylib                 libQt5Xml.5.15.dylib                    libmkl_scalapack_lp64.1.dylib
+libQt5Bodymovin.dylib                   libQt5Xml.5.dylib                       libmkl_scalapack_lp64.dylib
+libQt5Bodymovin.prl                     libQt5Xml.dylib                         libmkl_sequential.1.dylib
+libQt5Bootstrap.a                       libQt5Xml.prl                           libmkl_sequential.dylib
+libQt5Bootstrap.prl                     libQt5XmlPatterns.5.15.2.dylib          libmkl_tbb_thread.1.dylib
+libQt5Charts.5.15.2.dylib               libQt5XmlPatterns.5.15.dylib            libmkl_tbb_thread.dylib
+libQt5Charts.5.15.dylib                 libQt5XmlPatterns.5.dylib               libmkl_vml_avx.1.dylib
+libQt5Charts.5.dylib                    libQt5XmlPatterns.dylib                 libmkl_vml_avx2.1.dylib
+libQt5Charts.dylib                      libQt5XmlPatterns.prl                   libmkl_vml_avx512.1.dylib
+libQt5Charts.prl                        libRemarks.11.dylib                     libmkl_vml_mc2.1.dylib
+libQt5ClipboardSupport.a                libRemarks.12.dylib                     libmkl_vml_mc3.1.dylib
+libQt5ClipboardSupport.prl              libRemarks.14.dylib                     libmpc.3.dylib
+libQt5Concurrent.5.15.2.dylib           libaec.0.0.10.dylib                     libmpc.a
+libQt5Concurrent.5.15.dylib             libaec.0.dylib                          libmpc.dylib
+libQt5Concurrent.5.dylib                libaec.dylib                            libmpc.la
+libQt5Concurrent.dylib                  libarchive.19.dylib                     libmpfr.6.dylib
+libQt5Concurrent.prl                    libarchive.a                            libmpfr.a
+libQt5Core.5.15.2.dylib                 libarchive.dylib                        libmpfr.dylib
+libQt5Core.5.15.dylib                   libasprintf.0.dylib                     libncurses++.a
+libQt5Core.5.dylib                      libasprintf.a                           libncurses++w.a
+libQt5Core.dylib                        libasprintf.dylib                       libncurses.6.dylib
+libQt5Core.prl                          libbenchmark.0.0.0.dylib                libncurses.a
+libQt5DBus.5.15.2.dylib                 libbenchmark.0.dylib                    libncurses.dylib
+libQt5DBus.5.15.dylib                   libbenchmark.a                          libncursesw.6.dylib
+libQt5DBus.5.dylib                      libbenchmark.dylib                      libncursesw.a
+libQt5DBus.dylib                        libbenchmark_main.0.0.0.dylib           libncursesw.dylib
+libQt5DBus.prl                          libbenchmark_main.0.dylib               libnghttp2.14.dylib
+libQt5DataVisualization.5.15.2.dylib    libbenchmark_main.a                     libnghttp2.dylib
+libQt5DataVisualization.5.15.dylib      libbenchmark_main.dylib                 libnspr4.dylib
+libQt5DataVisualization.5.dylib         libblosc.1.21.0.dylib                   libnss3.dylib
+libQt5DataVisualization.dylib           libblosc.1.dylib                        libnssckbi-testlib.dylib
+libQt5DataVisualization.prl             libblosc.a                              libnssckbi.dylib
+libQt5Designer.5.15.2.dylib             libblosc.dylib                          libnssdbm3.chk
+libQt5Designer.5.15.dylib               libbrotlicommon.1.0.9.dylib             libnssdbm3.dylib
+libQt5Designer.5.dylib                  libbrotlicommon.1.dylib                 libnssutil3.dylib
+libQt5Designer.dylib                    libbrotlicommon.dylib                   libodbc.2.dylib
+libQt5Designer.prl                      libbrotlidec.1.0.9.dylib                libodbc.dylib
+libQt5DesignerComponents.5.15.2.dylib   libbrotlidec.1.dylib                    libodbccr.2.dylib
+libQt5DesignerComponents.5.15.dylib     libbrotlidec.dylib                      libodbccr.dylib
+libQt5DesignerComponents.5.dylib        libbrotlienc.1.0.9.dylib                libodbcinst.2.dylib
+libQt5DesignerComponents.dylib          libbrotlienc.1.dylib                    libodbcinst.dylib
+libQt5DesignerComponents.prl            libbrotlienc.dylib                      libomp.dylib
+libQt5DeviceDiscoverySupport.a          libbrunslidec-c.dylib                   libonedal.1.1.dylib
+libQt5DeviceDiscoverySupport.prl        libbrunslienc-c.dylib                   libonedal.1.dylib
+libQt5EdidSupport.a                     libbz2.1.0.8.dylib                      libonedal.dylib
+libQt5EdidSupport.prl                   libbz2.a                                libonedal_core.1.1.dylib
+libQt5EventDispatcherSupport.a          libbz2.dylib                            libonedal_core.1.dylib
+libQt5EventDispatcherSupport.prl        libc++.1.0.dylib                        libonedal_core.dylib
+libQt5FbSupport.a                       libc++.1.dylib                          libonedal_thread.1.1.dylib
+libQt5FbSupport.prl                     libc++.a                                libonedal_thread.1.dylib
+libQt5FontDatabaseSupport.a             libc++.dylib                            libonedal_thread.dylib
+libQt5FontDatabaseSupport.prl           libc++experimental.a                    libonig.5.dylib
+libQt5Gamepad.5.15.2.dylib              libcares.2.5.1.dylib                    libonig.a
+libQt5Gamepad.5.15.dylib                libcares.2.dylib                        libonig.dylib
+libQt5Gamepad.5.dylib                   libcares.dylib                          libopenjp2.2.4.0.dylib
+libQt5Gamepad.dylib                     libcfitsio.8.3.47.dylib                 libopenjp2.7.dylib
+libQt5Gamepad.prl                       libcfitsio.8.dylib                      libopenjp2.a
+libQt5GraphicsSupport.a                 libcfitsio.a                            libopenjp2.dylib
+libQt5GraphicsSupport.prl               libcfitsio.dylib                        libpanel.6.dylib
+libQt5Gui.5.15.2.dylib                  libcfp.0.5.5.dylib                      libpanel.a
+libQt5Gui.5.15.dylib                    libcfp.0.dylib                          libpanel.dylib
+libQt5Gui.5.dylib                       libcfp.dylib                            libpanelw.6.dylib
+libQt5Gui.dylib                         libcharls.2.2.0.dylib                   libpanelw.a
+libQt5Gui.prl                           libcharls.2.dylib                       libpanelw.dylib
+libQt5Help.5.15.2.dylib                 libcharls.dylib                         libpcre.1.dylib
+libQt5Help.5.15.dylib                   libcharset.1.dylib                      libpcre.a
+libQt5Help.5.dylib                      libcharset.a                            libpcre.dylib
+libQt5Help.dylib                        libcharset.dylib                        libpcrecpp.0.dylib
+libQt5Help.prl                          libclang.12.dylib                       libpcrecpp.a
+libQt5Location.5.15.2.dylib             libclang.dylib                          libpcrecpp.dylib
+libQt5Location.5.15.dylib               libcom_err.3.0.dylib                    libpcreposix.0.dylib
+libQt5Location.5.dylib                  libcom_err.3.dylib                      libpcreposix.a
+libQt5Location.dylib                    libcom_err.dylib                        libpcreposix.dylib
+libQt5Location.prl                      libcrmf.a                               libpgcommon.a
+libQt5MacExtras.5.15.2.dylib            libcrypto.1.1.dylib                     libpgcommon_shlib.a
+libQt5MacExtras.5.15.dylib              libcrypto.a                             libpgfeutils.a
+libQt5MacExtras.5.dylib                 libcrypto.dylib                         libpgport.a
+libQt5MacExtras.dylib                   libcurl.4.dylib                         libpgport_shlib.a
+libQt5MacExtras.prl                     libcurl.dylib                           libpgtypes.3.12.dylib
+libQt5Multimedia.5.15.2.dylib           libdeflate.0.dylib                      libpgtypes.3.dylib
+libQt5Multimedia.5.15.dylib             libdeflate.dylib                        libpgtypes.a
+libQt5Multimedia.5.dylib                libecpg.6.12.dylib                      libpgtypes.dylib
+libQt5Multimedia.dylib                  libecpg.6.dylib                         libplc4.dylib
+libQt5Multimedia.prl                    libecpg.a                               libplds4.dylib
+libQt5MultimediaGstTools.5.15.2.dylib   libecpg.dylib                           libpng.a
+libQt5MultimediaGstTools.5.15.dylib     libecpg_compat.3.12.dylib               libpng.dylib
+libQt5MultimediaGstTools.5.dylib        libecpg_compat.3.dylib                  libpng16.16.dylib
+libQt5MultimediaGstTools.dylib          libecpg_compat.a                        libpng16.a
+libQt5MultimediaGstTools.prl            libecpg_compat.dylib                    libpng16.dylib
+libQt5MultimediaQuick.5.15.2.dylib      libedit.0.dylib                         libpq.5.12.dylib
+libQt5MultimediaQuick.5.15.dylib        libedit.a                               libpq.5.dylib
+libQt5MultimediaQuick.5.dylib           libedit.dylib                           libpq.a
+libQt5MultimediaQuick.dylib             libev.4.dylib                           libpq.dylib
+libQt5MultimediaQuick.prl               libev.dylib                             libpqwalreceiver.so
+libQt5MultimediaWidgets.5.15.2.dylib    libexslt.0.dylib                        libpython3.9.dylib
+libQt5MultimediaWidgets.5.15.dylib      libexslt.a                              libqtfreetype.prl
+libQt5MultimediaWidgets.5.dylib         libexslt.dylib                          libquadmath.0.dylib
+libQt5MultimediaWidgets.dylib           libffi.6.dylib                          libquadmath.dylib
+libQt5MultimediaWidgets.prl             libffi.7.dylib                          libreadline.8.1.dylib
+libQt5Network.5.15.2.dylib              libffi.a                                libreadline.8.dylib
+libQt5Network.5.15.dylib                libffi.dylib                            libreadline.a
+libQt5Network.5.dylib                   libfftw3.3.dylib                        libreadline.dylib
+libQt5Network.dylib                     libfftw3.a                              libsmime3.dylib
+libQt5Network.prl                       libfftw3.dylib                          libsnappy.1.1.9.dylib
+libQt5NetworkAuth.5.15.2.dylib          libfftw3_threads.3.dylib                libsnappy.1.dylib
+libQt5NetworkAuth.5.15.dylib            libfftw3_threads.a                      libsnappy.a
+libQt5NetworkAuth.5.dylib               libfftw3_threads.dylib                  libsnappy.dylib
+libQt5NetworkAuth.dylib                 libfftw3f.3.dylib                       libsodium.23.dylib
+libQt5NetworkAuth.prl                   libfftw3f.a                             libsodium.a
+libQt5Nfc.5.15.2.dylib                  libfftw3f.dylib                         libsodium.dylib
+libQt5Nfc.5.15.dylib                    libfftw3f_threads.3.dylib               libsoftokn3.chk
+libQt5Nfc.5.dylib                       libfftw3f_threads.a                     libsoftokn3.dylib
+libQt5Nfc.dylib                         libfftw3f_threads.dylib                 libspatialindex.6.1.1.dylib
+libQt5Nfc.prl                           libfftw3l.3.dylib                       libspatialindex.6.dylib
+libQt5OpenGL.5.15.2.dylib               libfftw3l.a                             libspatialindex.dylib
+libQt5OpenGL.5.15.dylib                 libfftw3l.dylib                         libspatialindex_c.6.1.1.dylib
+libQt5OpenGL.5.dylib                    libfftw3l_threads.3.dylib               libspatialindex_c.6.dylib
+libQt5OpenGL.dylib                      libfftw3l_threads.a                     libspatialindex_c.dylib
+libQt5OpenGL.prl                        libfftw3l_threads.dylib                 libsqlite3.0.dylib
+libQt5OpenGLExtensions.a                libform.6.dylib                         libsqlite3.dylib
+libQt5OpenGLExtensions.prl              libform.a                               libssh2.1.0.1.dylib
+libQt5PacketProtocol.a                  libform.dylib                           libssh2.1.dylib
+libQt5PacketProtocol.prl                libformw.6.dylib                        libssh2.a
+libQt5Pdf.5.15.9.dylib                  libformw.a                              libssh2.dylib
+libQt5Pdf.5.15.dylib                    libformw.dylib                          libssl.1.1.dylib
+libQt5Pdf.5.dylib                       libfreebl3.chk                          libssl.a
+libQt5Pdf.dylib                         libfreebl3.dylib                        libssl.dylib
+libQt5Pdf.prl                           libfreetype.6.dylib                     libssl3.dylib
+libQt5PdfWidgets.5.15.9.dylib           libfreetype.a                           libsz.2.0.1.dylib
+libQt5PdfWidgets.5.15.dylib             libfreetype.dylib                       libsz.2.dylib
+libQt5PdfWidgets.5.dylib                libgcc_s.1.1.dylib                      libsz.dylib
+libQt5PdfWidgets.dylib                  libgettextlib-0.21.dylib                libtapi.dylib
+libQt5PdfWidgets.prl                    libgettextlib.dylib                     libtbb.12.6.dylib
+libQt5PlatformCompositorSupport.a       libgettextpo.0.dylib                    libtbb.12.dylib
+libQt5PlatformCompositorSupport.prl     libgettextpo.a                          libtbbmalloc.2.6.dylib
+libQt5Positioning.5.15.2.dylib          libgettextpo.dylib                      libtbbmalloc.2.dylib
+libQt5Positioning.5.15.dylib            libgettextsrc-0.21.dylib                libtbbmalloc_proxy.2.6.dylib
+libQt5Positioning.5.dylib               libgettextsrc.dylib                     libtbbmalloc_proxy.2.dylib
+libQt5Positioning.dylib                 libgfortran.5.dylib                     libtcl8.6.dylib
+libQt5Positioning.prl                   libgfortran.dylib                       libtclstub8.6.a
+libQt5PositioningQuick.5.15.2.dylib     libgif.7.2.0.dylib                      libtextstyle.0.dylib
+libQt5PositioningQuick.5.15.dylib       libgif.7.dylib                          libtextstyle.a
+libQt5PositioningQuick.5.dylib          libgif.dylib                            libtextstyle.dylib
+libQt5PositioningQuick.dylib            libgio-2.0.0.dylib                      libtiff.5.dylib
+libQt5PositioningQuick.prl              libgio-2.0.dylib                        libtiff.a
+libQt5PrintSupport.5.15.2.dylib         libglib-2.0.0.dylib                     libtiff.dylib
+libQt5PrintSupport.5.15.dylib           libglib-2.0.dylib                       libtiffxx.5.dylib
+libQt5PrintSupport.5.dylib              libgmock.1.10.0.dylib                   libtiffxx.a
+libQt5PrintSupport.dylib                libgmock.a                              libtiffxx.dylib
+libQt5PrintSupport.prl                  libgmock.dylib                          libtinfo.6.dylib
+libQt5Purchasing.5.15.2.dylib           libgmock_main.1.10.0.dylib              libtinfo.a
+libQt5Purchasing.5.15.dylib             libgmock_main.a                         libtinfo.dylib
+libQt5Purchasing.5.dylib                libgmock_main.dylib                     libtinfow.6.dylib
+libQt5Purchasing.dylib                  libgmodule-2.0.0.dylib                  libtinfow.a
+libQt5Purchasing.prl                    libgmodule-2.0.dylib                    libtinfow.dylib
+libQt5Qml.5.15.2.dylib                  libgmp.10.dylib                         libtk8.6.dylib
+libQt5Qml.5.15.dylib                    libgmp.a                                libtkstub8.6.a
+libQt5Qml.5.dylib                       libgmp.dylib                            libunistring.2.dylib
+libQt5Qml.dylib                         libgmpxx.4.dylib                        libunistring.dylib
+libQt5Qml.prl                           libgmpxx.a                              libverto.0.0.dylib
+libQt5QmlDebug.a                        libgmpxx.dylib                          libverto.0.dylib
+libQt5QmlDebug.prl                      libgobject-2.0.0.dylib                  libverto.dylib
+libQt5QmlDevTools.a                     libgobject-2.0.dylib                    libwebp.7.dylib
+libQt5QmlDevTools.prl                   libgomp.1.dylib                         libwebp.a
+libQt5QmlModels.5.15.2.dylib            libgomp.dylib                           libwebp.dylib
+libQt5QmlModels.5.15.dylib              libgssapi_krb5.2.2.dylib                libwebpdecoder.3.dylib
+libQt5QmlModels.5.dylib                 libgssapi_krb5.2.dylib                  libwebpdecoder.a
+libQt5QmlModels.dylib                   libgssapi_krb5.dylib                    libwebpdecoder.dylib
+libQt5QmlModels.prl                     libgssrpc.4.2.dylib                     libwebpdemux.2.dylib
+libQt5QmlWorkerScript.5.15.2.dylib      libgssrpc.4.dylib                       libwebpdemux.a
+libQt5QmlWorkerScript.5.15.dylib        libgssrpc.dylib                         libwebpdemux.dylib
+libQt5QmlWorkerScript.5.dylib           libgstallocators-1.0.0.dylib            libwebpmux.3.dylib
+libQt5QmlWorkerScript.dylib             libgstallocators-1.0.dylib              libwebpmux.a
+libQt5QmlWorkerScript.prl               libgstapp-1.0.0.dylib                   libwebpmux.dylib
+libQt5Quick.5.15.2.dylib                libgstapp-1.0.dylib                     libxml2.2.dylib
+libQt5Quick.5.15.dylib                  libgstaudio-1.0.0.dylib                 libxml2.dylib
+libQt5Quick.5.dylib                     libgstaudio-1.0.dylib                   libxslt.1.dylib
+libQt5Quick.dylib                       libgstbase-1.0.0.dylib                  libxslt.a
+libQt5Quick.prl                         libgstbase-1.0.dylib                    libxslt.dylib
+libQt5Quick3D.5.15.2.dylib              libgstcheck-1.0.0.dylib                 libyaml-0.2.dylib
+libQt5Quick3D.5.15.dylib                libgstcheck-1.0.dylib                   libyaml.a
+libQt5Quick3D.5.dylib                   libgstcontroller-1.0.0.dylib            libyaml.dylib
+libQt5Quick3D.dylib                     libgstcontroller-1.0.dylib              libz.1.2.12.dylib
+libQt5Quick3D.prl                       libgstfft-1.0.0.dylib                   libz.1.dylib
+libQt5Quick3DAssetImport.5.15.2.dylib   libgstfft-1.0.dylib                     libz.a
+libQt5Quick3DAssetImport.5.15.dylib     libgstgl-1.0.0.dylib                    libz.dylib
+libQt5Quick3DAssetImport.5.dylib        libgstgl-1.0.dylib                      libzfp.0.5.5.dylib
+libQt5Quick3DAssetImport.dylib          libgstnet-1.0.0.dylib                   libzfp.0.dylib
+libQt5Quick3DAssetImport.prl            libgstnet-1.0.dylib                     libzfp.dylib
+libQt5Quick3DRender.5.15.2.dylib        libgstpbutils-1.0.0.dylib               libzmq.5.dylib
+libQt5Quick3DRender.5.15.dylib          libgstpbutils-1.0.dylib                 libzmq.dylib
+libQt5Quick3DRender.5.dylib             libgstreamer-1.0.0.dylib                libzopfli.1.0.3.dylib
+libQt5Quick3DRender.dylib               libgstreamer-1.0.dylib                  libzopfli.1.dylib
+libQt5Quick3DRender.prl                 libgstriff-1.0.0.dylib                  libzopfli.dylib
+libQt5Quick3DRuntimeRender.5.15.2.dylib libgstriff-1.0.dylib                    libzopflipng.1.0.3.dylib
+libQt5Quick3DRuntimeRender.5.15.dylib   libgstrtp-1.0.0.dylib                   libzopflipng.1.dylib
+libQt5Quick3DRuntimeRender.5.dylib      libgstrtp-1.0.dylib                     libzopflipng.dylib
+libQt5Quick3DRuntimeRender.dylib        libgstrtsp-1.0.0.dylib                  libzstd.1.5.2.dylib
+libQt5Quick3DRuntimeRender.prl          libgstrtsp-1.0.dylib                    libzstd.1.dylib
+libQt5Quick3DUtils.5.15.2.dylib         libgstsdp-1.0.0.dylib                   libzstd.a
+libQt5Quick3DUtils.5.15.dylib           libgstsdp-1.0.dylib                     libzstd.dylib
+libQt5Quick3DUtils.5.dylib              libgsttag-1.0.0.dylib                   metatypes
+libQt5Quick3DUtils.dylib                libgsttag-1.0.dylib                     mkl_msg.cat
+libQt5Quick3DUtils.prl                  libgstvideo-1.0.0.dylib                 openjpeg-2.4
+libQt5QuickControls2.5.15.2.dylib       libgstvideo-1.0.dylib                   pgoutput.so
+libQt5QuickControls2.5.15.dylib         libgtest.1.10.0.dylib                   pgxs
+libQt5QuickControls2.5.dylib            libgtest.a                              pkgconfig
+libQt5QuickControls2.dylib              libgtest.dylib                          plpgsql.so
+libQt5QuickControls2.prl                libgtest_main.1.10.0.dylib              python3.9
+libQt5QuickParticles.5.15.2.dylib       libgtest_main.a                         sqlite3.36.0
+libQt5QuickParticles.5.15.dylib         libgtest_main.dylib                     tapi
+libQt5QuickParticles.5.dylib            libgthread-2.0.0.dylib                  tcl8
+libQt5QuickParticles.dylib              libgthread-2.0.dylib                    tcl8.6
+libQt5QuickParticles.prl                libhdf5.103.dylib                       tclConfig.sh
+libQt5QuickShapes.5.15.2.dylib          libhdf5.a                               tclooConfig.sh
+libQt5QuickShapes.5.15.dylib            libhdf5.dylib                           tdbc1.1.3
+libQt5QuickShapes.5.dylib               libhdf5.settings                        tdbcmysql1.1.3
+libQt5QuickShapes.dylib                 libhdf5_cpp.103.dylib                   tdbcodbc1.1.3
+libQt5QuickShapes.prl                   libhdf5_cpp.a                           tdbcpostgres1.1.3
+libQt5QuickTemplates2.5.15.2.dylib      libhdf5_cpp.dylib                       terminfo
+libQt5QuickTemplates2.5.15.dylib        libhdf5_fortran.a                       thread2.8.7
+libQt5QuickTemplates2.5.dylib           libhdf5_hl.100.dylib                    tk8.6
+libQt5QuickTemplates2.dylib             libhdf5_hl.a                            tkConfig.sh
+libQt5QuickTemplates2.prl               libhdf5_hl.dylib                        utf8_and_ascii.so
+libQt5QuickTest.5.15.2.dylib            libhdf5_hl_cpp.100.dylib                utf8_and_big5.so
+libQt5QuickTest.5.15.dylib              libhdf5_hl_cpp.a                        utf8_and_cyrillic.so
+libQt5QuickTest.5.dylib                 libhdf5_hl_cpp.dylib                    utf8_and_euc2004.so
+libQt5QuickTest.dylib                   libhdf5_hl_fortran.a                    utf8_and_euc_cn.so
+libQt5QuickTest.prl                     libhdf5hl_fortran.a                     utf8_and_euc_jp.so
+libQt5QuickWidgets.5.15.2.dylib         libhistory.8.1.dylib                    utf8_and_euc_kr.so
+libQt5QuickWidgets.5.15.dylib           libhistory.8.dylib                      utf8_and_euc_tw.so
+libQt5QuickWidgets.5.dylib              libhistory.a                            utf8_and_gb18030.so
+libQt5QuickWidgets.dylib                libhistory.dylib                        utf8_and_gbk.so
+libQt5QuickWidgets.prl                  libiconv.2.dylib                        utf8_and_iso8859.so
+libQt5RemoteObjects.5.15.2.dylib        libiconv.a                              utf8_and_iso8859_1.so
+libQt5RemoteObjects.5.15.dylib          libiconv.dylib                          utf8_and_johab.so
+libQt5RemoteObjects.5.dylib             libicudata.58.2.dylib                   utf8_and_sjis.so
+libQt5RemoteObjects.dylib               libicudata.58.dylib                     utf8_and_sjis2004.so
+libQt5RemoteObjects.prl                 libicudata.a                            utf8_and_uhc.so
+libQt5RepParser.prl                     libicudata.dylib                        utf8_and_win.so
+libQt5Script.5.15.2.dylib               libicui18n.58.2.dylib                   xml2Conf.sh
+libQt5Script.5.15.dylib                 libicui18n.58.dylib                     xsltConf.sh
+libQt5Script.5.dylib                    libicui18n.a
+bash-3.2$ history
+   36  pwd
+   37  which python
+   38  python -m Django --version
+   39  python3 -m Django --version
+   40  pip3 install django
+   41  python3 -m django --version
+   42  python -m django --version
+   43  python3 -m django --version
+   44  django-admin startproject mysite2
+   45  ls
+   46  pwd
+   47  rm -rf mysite2
+   48  cd
+   49  ped
+   50  pwd
+   51  cd Research
+   52  ls
+   53  cd textsum
+   54  django-admin startproject mysite2
+   55  python manage.py runserver
+   56  cd ..
+   57  pwd
+   58  ls
+   59  cd textsum
+   60  python3 manage.py runserver
+   61  pip install wikipedia
+   62  pip3 install wikipedia
+   63  pwd
+   64  ls
+   65  echo $PYTHONPATH
+   66  cd
+   67  pwd
+   68  mkdir dev
+   69  cd dev
+   70  ls
+   71  ls
+   72  pwd
+   73  python -m django --version
+   74  python3 -m django --version
+   75  django-admin startproject mysite
+   76  ls
+   77  cd my*
+   78  ls
+   79  python3 manage.py runserver
+   80  pwd
+   81  mkdir dev5
+   82  ls
+   83  cd dev5
+   84  cp -rf ~/Downloads/mywebsite_2 . 
+   85  cd Downloads
+   86  cd ~/Downloads
+   87  ls
+   88  rm -rf mywebsite*
+   89  rm -rf extension*
+   90  ls
+   91  cd
+   92  cd dev5
+   93  ls
+   94  rm -rf *
+   95  ls
+   96  cp -rf ~/Down*/myweb* . 
+   97  cp -rf ~/Down*/extensi* . 
+   98  ls
+   99  rm -rf mywebsite
+  100  ls
+  101  unzip m*zip
+  102  ls
+  103  unzip ext*zip
+  104  ls
+  105  cd m*e
+  106  ls
+  107  ./r
+  108  chmod +x r
+  109  ls
+  110  cd m*e
+  111  ls
+  112  ./r
+  113  clear
+  114  python manage.py runserver
+  115  clear
+  116  python manage.py runserver
+  117  python manage.py runserver
+  118  clear
+  119  python manage.py runserver
+  120  ls
+  121  stack ghci
+  122  stack test
+  123  stack ghci Lib
+  124  j2d.py -d
+  125  ./j2d.py -d
+  126  ./j2d.py -d dcm_dir
+  127  ./j2d.py -D dcm_dir
+  128  ./j2d.py -d dcm_dir -D
+  129  q
+  130  wq
+  131  ls
+  132  vi j2d.py
+  133  vi file_util.py
+  134  ls
+  135  vi j2d_test.py
+  136  ls
+  137  vi j2d_test.py
+  138  chmod +x j2d_test.py
+  139  chmod +x *.py
+  140  ./j2d_test.py
+  141  ./j2d_test.py -T
+  142  ls
+  143  ls -al ./dcm_dir/SAY/bids/sub-SAY434/ses-B/func/sub-SAY434_ses-B_task-nback_dir-PA_run-1_bold.dicom
+  144  time ./j2d_test.py -T
+  145  ls
+  146  pwd
+  147  chmod +x *.py
+  148  chmod +x run.sh
+  149  cat run.sh
+  150  ./run.sh
+  151  ls
+  152  tar cvf SAY_test_dcm.tar testing
+  153  ls -al SAY_test_dcm.tar
+  154  gzip SAY_test_dcm.tar
+  155  ls -al SAY_test_dcm.tar
+  156  ls -al SAY_test_dcm.tar.gz
+  157  ls
+  158  who
+  159  ls
+  160  cd
+  161  vi ~/.zshrc
+  162  source ~/.zshrc
+  163  pyenv shell 3.9.0
+  164  pyenv init
+  165  exit
+  166  python
+  167  pip show xnat
+  168  ls /usr/local/lib/python3.10/site-packages/xnat*
+  169  vi ~/.bashrc
+  170  vi ~/.bashrc
+  171  . ~/.bashrc
+  172  python
+  173  vi ~/.netrc
+  174  pwd
+  175  ls
+  176  cd Desk*
+  177  ls
+  178  cd uiuc
+  179  ls
+  180  cd XNAT
+  181  ls
+  182  cp ~/Down*/session.py .
+  183  cp ~/Down*/session.py .
+  184  vi session.py
+  185  ./session.py
+  186  chmod +x *.py
+  187  ./session.py
+  188  vi session.py
+  189  ./session.py
+  190  ./cleansh
+  191  cp ~/Down*/session.py .
+  192  cp ~/Down*/session.py .
+  193  chmod +x *.py
+  194  ./session.py
+  195  vi ~/.netrc
+  196  ./session.py
+  197  cat ~/.netrc
+  198  vi ~/.netrc
+  199  ./session.py
+  200  ./cpsh
+  201  vi cpsh
+  202  ./cpsh
+  203  ./run.py -d test
+  204  vi run.py
+  205  ls
+  206  vi r
+  207  pwd
+  208  cp ~/Down*/CUPS.log .
+  209  ./run.py -i CUPS.log
+  210  pip install numpy
+  211  pip3 install numpy
+  212  conda install numpy
+  213  ls
+  214  vi r
+  215  vi cpsh
+  216  ./cpsh
+  217  ls
+  218  ./['CUPS003', 'CUPS005', 'CUPS006', 'CUPS008', 'CUPS009', 'CUPS010', 'CUPS012', 'CUPS013', 'CUPS015', 'CUPS016', 'CUPS017', 'CUPS018', 'CUPS019', 'CUPS022', 'CUPS023', 'CUPS027', 'CUPS029', 'CUPS030', 'CUPS035', 'CUPS037', 'CUPS039', 'CUPS040', 'CUPS041', 'CUPS042', 'CUPS044', 'CUPS047', 'CUPS048', 'CUPS051', 'CUPS053', 'CUPS054', 'CUPS055', 'CUPS056', 'CUPS057', 'CUPS058', 'CUPS059', 'CUPS060', 'CUPS061', 'CUPS062', 'CUPS064', 'CUPS065', 'CUPS
+  219  ./run_xnat_pipeline.sh
+  220  ./cleansh
+  221  ./cpsh
+  222  ./run_xnat_pipeline.sh
+  223  pip show Image
+  224  pip show PIL
+  225  pip3 show PIL
+  226  vi ~/.bashrc
+  227  ./run_xnat_pipeline.sh
+  228  ls
+  229  pwd
+  230  ./r
+  231  vi r
+  232  python XNAT_file_pipeline.py -id CUPS003 -D
+  233  python
+  234  ls /usr/local/lib/
+  235  cd python3.11
+  236  pwd
+  237  ls /usr/local/lib/python3.11
+  238  ls /usr/local/lib/python3.11/site-packages
+  239  ls -al /usr/local/lib/python3.11/site-packages
+  240  ls -al /usr/local/lib/python3.10/site-packages
+  241  vi ~/.bashrc
+  242  . ~/.bashrc
+  243  pwd
+  244  ls
+  245  ./r
+  246  ls
+  247  ./run_xnat_pipeline.sh
+  248  pwd
+  249  ls
+  250  script test11302023.log
+  251  vi test11302023.log
+  252  dos2unix test11302023.log
+  253  brew install dos2unix
+  254  dos2unix test11302023.log
+  255  vi test11302023.log
+  256  dos2unix test11302023.log
+  257  vi test11302023.log
+  258  dos2unix test11302023.log
+  259  vi test11302023.log
+  260  dos2unix test11302023.log
+  261  vi test11302023.log
+  262  dos2unix test11302023.log
+  263  vi test11302023.log
+  264  dos2unix test11302023.log
+  265  vi test11302023.log
+  266  dos2unix test11302023.log
+  267  vi test11302023.log
+  268  dos2unix test11302023.log
+  269  ls
+  270  vi test11302023.log
+  271  ls
+  272  ./cleansh
+  273  ls
+  274  script testlog
+  275  vi testlog
+  276  dos2unix testlog
+  277  vi testlog
+  278  dos2unix testlog
+  279  vi testlog
+  280  dos2unix testlog
+  281  ls
+  282  cat ~/.bashrc
+  283  cat ~/.netrc
+  284  cd 
+  285  ls
+  286  vi CUPS.log
+  287  pwd
+  288  ls
+  289  cd Desktop
+  290  ls
+  291  cd uiuc
+  292  ls
+  293  cd XNAT
+  294  ls
+  295  vi r
+  296  ./cleansh
+  297  ls
+  298  pwd
+  299  vi run.py
+  300  vi run.sh
+  301  chmod +x run.sh
+  302  vi run.sh
+  303  ls
+  304  pwd
+  305  ls
+  306  pyenv local 3.8.11
+  307  pyenv local 3.9.0
+  308  pyenv local
+  309  python -V
+  310  pwd
+  311  ls
+  312  vi run.sh
+  313  vi ~/.bashrc
+  314  vi pyxnat_send.py
+  315  ./pyxnat_send.py
+  316  . ~/.bashrc
+  317  ./pyxnat_send.py
+  318  ./pyxnat_send.py
+  319  python
+  320  python
+  321  pip install xnatpy
+  322  pyenv versions
+  323  pyenv virtualenv --version
+  324  pyenv local
+  325  pyenv global
+  326  pwd
+  327  pyenv shell 3.9.0
+  328  pyenv init
+  329  pyenv shell 3.9.0
+  330  vi ~/.bash_profile
+  331  . ~/.bash_profile
+  332  pyenv init
+  333  pyenv shell 3.9.0
+  334  echo $SHELL
+  335  bash
+  336  exit
+  337  python -V
+  338  wich python
+  339  which python
+  340  ls /usr/bin/python
+  341  brew install pyenv
+  342  pyenv install --list
+  343  pyenv install 3.9.0
+  344  which python
+  345  python -V
+  346  cd /Users/emilyzhou/.pyenv/versions/3.9.0
+  347  ls
+  348  cd bin
+  349  ls
+  350  ./python -V
+  351  pwd
+  352  cd 
+  353  ls
+  354  cd Desk*
+  355  ls
+  356  ls
+  357  cd
+  358  pwd
+  359  cd Desk*
+  360  ls
+  361  python -V
+  362  cd /Users/emilyzhou/Desktop/uiuc/XNAT
+  363  ls
+  364  python -V
+  365  vi pyxnat_send.py
+  366  pwd
+  367  ls
+  368  ./xnat_send.py
+  369  vi ./xnat_send.py
+  370  python -V
+  371  python ./xnat_send.py
+  372  pip install Sequence
+  373  pip install collections
+  374  pip uninstall collections
+  375  python
+  376  ls
+  377  ./run.py
+  378  exit
+  379  pwd
+  380  ls
+  381  ./run.sh
+  382  vi ~/.zshrc
+  383  vi ~/.bashrc
+  384  vi ~/.bash_profile
+  385  brew uninstall pyenv
+  386  ls ~/.pyenv
+  387  rm -rf ~/.pyenv
+  388  which python
+  389  python -V
+  390  ls
+  391  ./run.sh
+  392  brew uninstall python
+  393  which python
+  394  brew install python
+  395  which python
+  396  python -V
+  397  ls
+  398  ./run.sh
+  399  pip uninstall numpy
+  400  pip install numpy
+  401  brew install pip
+  402  python
+  403  pip uninstall Numpy
+  404  python -m pip unstall numpy
+  405  pip3 unstall numpy
+  406  which pip
+  407  pip -V
+  408  python -m pip
+  409  brew uninstall python==3.11.6
+  410  python -V
+  411  brew uninstall python
+  412  which pip
+  413  pip -V
+  414  pip --version
+  415  which -a python3
+  416  which python
+  417  which python3
+  418  brew uninstall python3
+  419  python3
+  420  cd /Applications/Xcode.app/Contents/Developer/usr/bin/
+  421  ls
+  422  ls -al
+  423  ls -al python*
+  424  ls pip*
+  425  ./pip3 uninstall numpy
+  426  which pip
+  427  pip install numpy
+  428  pwd
+  429  pip3 -V
+  430  ./pip3 -V
+  431  cd /usr/local/bin/
+  432  ls
+  433  ./pip -V
+  434  ./pip3.10
+  435  ./pip3.10 -V
+  436  ls
+  437  rm pip
+  438  rm pip3*
+  439  ls
+  440  ./python -V
+  441  pwd
+  442  ls python
+  443  ./python -V
+  444  pwd
+  445  file python
+  446  ls -al python
+  447  rm python
+  448  which python
+  449  which pip
+  450  which -a pip
+  451  which -a python
+  452  which -a pip3
+  453  pip3 -V
+  454  ls -al /usr/bin/pip3
+  455  cd /usr/bin
+  456  ls -al pip3
+  457  ./pip3 -V
+  458  ./pip3 install numpy
+  459  brew install python
+  460  ls  /usr/local/lib/python3.11/site-packages
+  461  ls
+  462  pwd
+  463  which python
+  464  which python3
+  465  pwd
+  466  ls
+  467  pwd
+  468  which -a python
+  469  which python3
+  470  pwd
+  471  ln -s /usr/local/bin/python3 python
+  472  python -V
+  473  python3 -V
+  474  cd /usr/local/bin
+  475  ls
+  476  ./python3 -V
+  477  pwd
+  478  ln -s python3 python
+  479  which python
+  480  python -V
+  481  python 
+  482  ls
+  483  ./pip3 -V
+  484  ls
+  485  ./pip3.11 -V
+  486  ./pip3 install numpy
+  487  pwd
+  488  pwd
+  489  ls
+  490  find /usr -name python3.9*
+  491  which conda
+  492  find /usr/local -name conda
+  493  cd /usr/local/anaconda3/bin/
+  494  ls
+  495  pwd
+  496  ./python -V
+  497  ./python
+  498  pwd
+  499  ./pip -V
+  500  vi ~/.bashrc
+  501  . ~/.bashrc
+  502  ls -a /Users/emilyzhou/.pyenv
+  503  ls
+  504  pwd
+  505  cd
+  506  pwd
+  507  ls
+  508  cd Desk*
+  509  ls
+  510  cd Desk*/uiuc
+  511  pwd
+  512  cd uiuc
+  513  ls
+  514  cd XNAT
+  515  ls
+  516  ./run.sh
+  517  which pip3
+  518  pwd
+  519  which python
+  520  python -V
+  521  python 
+  522  cd /usr/local/bin
+  523  ls
+  524  ./pip3 -V
+  525  ./python -V
+  526  brew uninstall python
+  527  which pip3
+  528  cd usr/local/anaconda3
+  529  cd /usr/local/anaconda3
+  530  ls
+  531  cd lin
+  532  ls
+  533  cd lib
+  534  ls
+  535  history
+bash-3.2$ which -a pip3
+/usr/local/anaconda3/bin/pip3
+/usr/bin/pip3
+bash-3.2$ /usr/bin/pip3 -V
+pip 23.3.1 from /usr/local/lib/python3.11/site-packages/pip (python 3.9)
+bash-3.2$ /usr/bin/pip3 uninstall numpy
+Found existing installation: numpy 1.26.1
+Uninstalling numpy-1.26.1:
+  Would remove:
+    /usr/local/lib/python3.11/site-packages/numpy-1.26.1.dist-info/*
+    /usr/local/lib/python3.11/site-packages/numpy/*
+Proceed (Y/n)? Y
+  Successfully uninstalled numpy-1.26.1
+bash-3.2$ pwd
+/usr/local/anaconda3/lib
+bash-3.2$ vi ~/.bashrc
+bash-3.2$ 
+=====================================================================
