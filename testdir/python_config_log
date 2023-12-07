@@ -1,0 +1,30 @@
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % ./xnat_send.py &> xnat_import_output_log
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % vi xnat_import_output_log
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % python -V
+Python 3.11.6
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % which python
+/usr/local/bin/python
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % which pip
+/usr/local/anaconda3/bin/pip
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % which pip3
+/usr/local/bin/pip3
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % pip3 -V
+pip 23.3.1 from /usr/local/lib/python3.11/site-packages/pip (python 3.11)
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % cat $PATH
+cat: /usr/local/bin:/usr/local/anaconda3/bin:/usr/local/anaconda3/condabin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Users/emilyzhou/.cabal/bin:/Users/emilyzhou/.ghcup/bin: No such file or directory
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % echo $PYTHONPATH
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % ./xnat_send.py &> xnat_import_output_log
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % vi xnat_import_output_log
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % python -V
+Python 3.11.6
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % which python
+/usr/local/bin/python
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % which pip
+/usr/local/anaconda3/bin/pip
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % which pip3
+/usr/local/bin/pip3
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % pip3 -V
+pip 23.3.1 from /usr/local/lib/python3.11/site-packages/pip (python 3.11)
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % cat $PATH
+cat: /usr/local/bin:/usr/local/anaconda3/bin:/usr/local/anaconda3/condabin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Users/emilyzhou/.cabal/bin:/Users/emilyzhou/.ghcup/bin: No such file or directory
+(base) emilyzhou@Emilys-MacBook-Pro-69 XNAT % echo $PYTHONPATH
