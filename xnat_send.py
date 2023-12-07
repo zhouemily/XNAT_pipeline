@@ -17,12 +17,11 @@ def get_credentials(host):
 
 # Replace with your XNAT server's host
 host = 'xnat1.beckman.illinois.edu'
-port = '8104'
-#host2 = host+':'+port ##not working,  wrong  port number??
+#port = '8104'
 username, password = get_credentials(host)
 
 # Connect to the XNAT server with login info in ~/.netrc file for security (No login info hard coded in script) 
-with xnat.connect(f'http://{host}', user=username, password=password, debug=True) as session:
+with xnat.connect(f'http://{host}', user=username, password=password, debug=False) as session:
     if session.connect:
         projects = session.projects
         # Iterate through the projects and print their IDs
@@ -46,12 +45,16 @@ with xnat.connect(f'http://{host}', user=username, password=password, debug=True
         zip_full_path = os.path.abspath(zip_path)
         print("zip_file: "+zip_full_path)
         
-        session.services.import_(zip_full_path,project='CUPS')
-        #session.services.import_(zip_full_path,project='CUPS', subject='test002')
+        #session.services.import_(zip_full_path,project='CUPS')  ##try to upload to prearchive to be safe
+        #session.services.import_(zip_full_path,project='CUPS', subject='test002') ## should not use subject here since it is unknown here
 
+        prearchive_session = session.services.import_(zip_full_path, project='CUPS', destination='/prearchive')
+        print(prearchive_session)
+        session.prearchive.sessions()
+        prearchive_session = session.prearchive.sessions()[0]
+        #experiment = prearchive_session.archive(subject='ANONYMIZ3', experiment='ANONYMIZ3')
+        #print(experiment)
 
-#subject='XNAT03_New003' ##comment out for now since not knowing what to use, there are many choices
-#session.services.import_(zip_path, project, subject)
 
 ##When working with a session it is always important to disconnect when done:
 session.disconnect()
