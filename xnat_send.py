@@ -46,7 +46,8 @@ with xnat.connect(f'http://{host}', user=username, password=password, debug=True
         zip_full_path = os.path.abspath(zip_path)
         print("zip_file: "+zip_full_path)
         
-        session.services.import_(zip_full_path,project='CUPS', subject='test002')
+        session.services.import_(zip_full_path,project='CUPS')
+        #session.services.import_(zip_full_path,project='CUPS', subject='test002')
 
 
 #subject='XNAT03_New003' ##comment out for now since not knowing what to use, there are many choices
