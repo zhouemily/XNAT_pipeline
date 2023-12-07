@@ -1,0 +1,26 @@
+To enable Developer Mode in Google Chrome, follow these steps:
+
+Open Google Chrome: Launch the Chrome browser on your computer.
+
+Open DevTools:
+
+For Windows and Linux: Press Ctrl + Shift + I or F12.
+For macOS: Press Cmd + Option + I.
+Access DevTools Settings:
+
+Windows and Linux: Press Ctrl + Shift + P or Cmd + Shift + P on macOS.
+Type "settings" and select "Preferences: Open Settings" or navigate to the "Settings" option in the DevTools panel.
+Enable Developer Mode:
+
+In the DevTools settings, find the "Experiments" section.
+Check the box next to "Enable Developer Tools experiments."
+Restart DevTools:
+
+After enabling the Developer Tools experiments, close and reopen the DevTools window by pressing Ctrl + Shift + I or F12.
+This will activate Developer Mode in Chrome, giving you access to additional experimental features and settings within the Developer Tools panel.
+
+
+
+
+
+
