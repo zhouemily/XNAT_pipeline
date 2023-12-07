@@ -49,9 +49,10 @@ with xnat.connect(f'http://{host}', user=username, password=password, debug=Fals
         #session.services.import_(zip_full_path,project='CUPS', subject='test002') ## should not use subject here since it is unknown here
 
         prearchive_session = session.services.import_(zip_full_path, project='CUPS', destination='/prearchive')
-        print(prearchive_session)
-        session.prearchive.sessions()
-        prearchive_session = session.prearchive.sessions()[0]
+        print("zip file uploaded to prearchive: "+zip_path)
+        #print(prearchive_session)
+        #session.prearchive.sessions()
+        #prearchive_session = session.prearchive.sessions()[0]
         #experiment = prearchive_session.archive(subject='ANONYMIZ3', experiment='ANONYMIZ3')
         #print(experiment)
 
