@@ -137,6 +137,11 @@ class Pipeline:
         #https://support.dcmtk.org/docs/dcmodify.html
         #dcmodify -i "(0010,0010)=A Name" file.dcm 
         #https://dicom.innolitics.com/ciods/cr-image/general-series/00080060 (tag)
+
+        full_path = os.path.abspath(dcm_file)
+        if self.verbose:
+            print(full_path)
+
         meta_info=["(0010,0010)="+util_obj.cups_id+"_A","(0010, 0020)="+util_obj.cups_id,
                    "(0008,1030)=CUPS",
                    "(0008,103e)=Sample Series",
@@ -144,8 +149,10 @@ class Pipeline:
                    "(0008,0021)=20211203",
                    "(0008,0060)=MR"]
         for e in meta_info:
-            cmd="/usr/local/bin/dcmodify -i "+ "\""+e +"\""+ dcm_file
+            cmd="/usr/local/bin/dcmodify -i "+ "\""+e +"\" "+ full_path
             out,err,ret=Util().run_cmd(cmd)	
+            if ret!=0:
+                print("dcmodify is NOT successful, cmd ="+cmd)
             if self.verbose:
                 print("cmd is: "+cmd)
                 if ret==0:

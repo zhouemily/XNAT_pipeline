@@ -2,6 +2,7 @@
 
 import netrc
 import xnat
+import os
 
 ##use xnatpy and netrc modules
 #creat ~/.netrc to store "machine", user, and passwd for security purpose
@@ -16,33 +17,40 @@ def get_credentials(host):
 
 # Replace with your XNAT server's host
 host = 'xnat1.beckman.illinois.edu'
+port = '8104'
+#host2 = host+':'+port ##not working,  wrong  port number??
 username, password = get_credentials(host)
 
 # Connect to the XNAT server with login info in ~/.netrc file for security (No login info hard coded in script) 
-with xnat.connect(f'http://{host}', user=username, password=password) as session:
-    # Your code here, e.g., list all projects
-    projects = session.projects
-    for project in projects:
-        print(project)
-    subjects = session.subjects
-    for subject in subjects:
-        print(subject)
+with xnat.connect(f'http://{host}', user=username, password=password, debug=True) as session:
+    if session.connect:
+        projects = session.projects
+        # Iterate through the projects and print their IDs
+        for project_id in projects:
+            print(f"Project ID: {project_id}")
 
-##use xnatpy module, not netrc module to get user and passwd which is not safe, NOT use it
-#server_host = "xnat1.beckman.illinois.edu"
-#server_port = 8104
-#session = xnat.connect(server_host+":"+server_port)
-#session = xnat.connect('http://my.xnat.server', user='admin', password='secret')
+        subjects = session.subjects
+        for subject_id in subjects:
+            print(subject_id)
 
-#To add new data into XNAT it is possible to use the REST import service. 
-#It allows you to upload a zip file containing an experiment and XNAT will automatically 
-#try to store it in the correct place:
+        project_id='CUPS'    #select this only one
+        try:
+            project = session.projects[project_id]
+            # Retrieve the XNAT project object corresponding to the project ID
+            print(">>>project_id: "+project_id)
+        except KeyError:
+            project = None
+            print("project is None")
 
-zip_path='./CUPS.DICOM.zip'
-project='CUPS'
-##subject='' ##comment out for now since not knowing what to use, there are many choices
+        zip_path='./CUPS.DCM.zip'
+        zip_full_path = os.path.abspath(zip_path)
+        print("zip_file: "+zip_full_path)
+        
+        session.services.import_(zip_full_path,project='CUPS', subject='test002')
 
-session.services.import_(zip_path, project, subject)
+
+#subject='XNAT03_New003' ##comment out for now since not knowing what to use, there are many choices
+#session.services.import_(zip_path, project, subject)
 
 ##When working with a session it is always important to disconnect when done:
 session.disconnect()

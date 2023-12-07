@@ -5,17 +5,11 @@ Release Version: 1.0
 """ 
 import os
 import sys
-import csv
 import argparse
 import subprocess as sp
-import numpy as np
 import inspect
-import cairosvg
 import zipfile
-from PIL import Image, ImageDraw, ImageFont
 from datetime import datetime
-import pydicom
-from pydicom.datadict import tag_for_keyword
 
 class myRun:
     def __init__(self,list=None,debug=None,verbose=None,path=None):
@@ -34,7 +28,10 @@ class myRun:
             if self.path==None: 
                 cmd="./XNAT_file_pipeline.py -L -id "+e
             else:
-                cmd="./XNAT_file_pipeline.py -id "+e
+                if self.verbose:
+                    cmd="./XNAT_file_pipeline.py -id "+e + " -v"
+                else:
+                    cmd="./XNAT_file_pipeline.py -id "+e
 
             out,err,ret=Util().run_cmd(cmd)
             if ret:
@@ -146,8 +143,7 @@ def get_id_in_file(file_path, keyword, debug=None):
                     if keyword in elem and elem not in cup_id_list:
                             cup_id_list.append(elem)
                     if debug:
-                        pass
-                        #print(f"Line {line_number}: {line.strip()}")
+                        print(f"Line {line_number}: {line.strip()}")
     except FileNotFoundError:
         print(f"The file {file_path} was not found.")
     except Exception as e:
@@ -155,14 +151,13 @@ def get_id_in_file(file_path, keyword, debug=None):
 
     cup_id_list.sort()
     if debug:
+        #printf 10 items per line from the list
+        for i, a in enumerate(cup_id_list):
+            print (a,) 
+            if i % 10 == 9: 
+                print ("\n")
         #print(cup_id_list) ##this will print whole list in one line
         print("total number of cups_ids: "+ str(len(cup_id_list)))
-        print(cup_id_list) ##this will print whole list in one line
-        id_list=[]
-        for e in cup_id_list:
-            e=e.replace("sub-","")
-            id_list.append(e)
-        print(id_list)
     return cup_id_list
 
 def main():
@@ -232,3 +227,12 @@ def main():
 if __name__ == "__main__":
     main()
 
+"""
+bash-3.2$ which python
+/usr/local/bin/python
+bash-3.2$ python
+Python 3.11.6 (main, Nov  2 2023, 04:52:24) [Clang 14.0.3 (clang-1403.0.22.14.1)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+bash-3.2$ python -V
+Python 3.11.6
+"""
