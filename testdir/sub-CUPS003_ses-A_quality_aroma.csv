@@ -1,2 +1,0 @@
-id0,coregDice,coregCrossCorr,coregJaccard,coregCoverage,relMaxRMSMotion,relMeanRMSMotion,nNuisanceParameters,motionDVCorrInit,nVolCensored,normDice,normJaccard,normCoverage,normCrossCorr,estimatedLostTemporalDOF,motionDVCorrFinal
-sub-CUPS003,0.9949221,0.9921465,0.9898955,1,0.678574,0.253628,76,0.8098639,0,0.9587012,0.9206783,0.9606686,0.9472243,76,0.2981229
